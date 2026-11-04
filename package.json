@@ -1,0 +1,10 @@
+{
+  "name": "sacpf-online",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SACPF Basic football game with two-device play",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": { "ws": "^8.18.0" },
+  "engines": { "node": ">=18" }
+}

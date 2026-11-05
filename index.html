@@ -223,7 +223,7 @@ function importTeam(f){if(!f)return;const r=new FileReader();r.onload=()=>{IMSG=
 function setupHTML(){const ks=Object.keys(T),sel=i=>`<select onchange="PICK[${i}]=this.value;render()">${ks.map(k=>`<option value="${k}" ${PICK[i]==k?'selected':''}>${NM[k]}${YR[k]?' ('+YR[k]+')':''}</option>`).join('')}</select>`,same=PICK[0]==PICK[1];
  return `<div class=c><b>Choose the teams</b><p>${sel(0)} vs ${sel(1)}</p>${same?'<p><b>Pick two different teams.</b></p>':''}<button class=big ${same?'disabled':''} onclick="start()">Start game</button></div>${logoCard()}<div class=c><b>Add a team</b><p>Load a team file made by the card reader program.</p><input type="file" accept=".json,application/json" onchange="importTeam(this.files[0])"><p>${IMSG}</p></div>${loadBox()}`}
 const isPhone=()=>{try{return window.matchMedia('(max-width:700px)').matches}catch(x){return false}};
-function fieldSVG(){const ph=isPhone(),H=ph?140:200,t0=G.po==0,X=y=>250+y*10,at=p=>X(t0?p:110-p),kick=G.ph=='kick',pos=kick?35:G.pos,bx=at(pos),vx=ph?Math.max(0,Math.min(1200,bx-200)):0,vw=ph?400:1600,fs=ph?24:30,y1=Math.round(H*.29),y2=Math.round(H*.86);
+function fieldSVG(){const ph=isPhone(),H=ph?140:312,t0=G.po==0,X=y=>250+y*10,at=p=>X(t0?p:110-p),kick=G.ph=='kick',pos=kick?35:G.pos,bx=at(pos),vx=ph?Math.max(0,Math.min(1200,bx-200)):0,vw=ph?400:1600,fs=ph?24:30,y1=Math.round(H*.29),y2=Math.round(H*.86);
  let s=`<svg viewBox="${vx} 0 ${vw} ${H}" style="${ph?'':'min-width:760px;'}width:100%;display:block;border-radius:6px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><pattern id="hz" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="24" height="24" fill="#0c5a3a"/><rect width="5" height="24" fill="#cfe3d6"/></pattern></defs><rect width="1600" height="${H}" fill="#0c5a3a"/><rect width="250" height="${H}" fill="url(#hz)"/><rect x="1350" width="250" height="${H}" fill="url(#hz)"/>`,tk='';
  for(let y=0;y<=110;y++){const x=X(y);tk+=`M${x} 0v12M${x} ${H-12}v12`}
  s+=`<path d="${tk}" stroke="#fff" stroke-width="2" fill="none"/>`;
@@ -344,11 +344,16 @@ function stAuto(){if(!G||!G.st)return;const id=G.st.id;
 /* ---- two-device play (active only on the hosted site) ---- */
 const NETON=window.SACPF_NET===true;
 const NET={mode:null,code:'',ws:null,up:false,peer:false,sentTeams:'',leaving:false,err:'',everUp:false};
-const NETFN=['go','onside','setDef','pick','choose','setPos','chg','begin'],ORIG={};
+const NETFN=['go','onside','setDef','pick','choose','setPos','chg','begin','setRoster'],ORIG={};
 const netSend=o=>{try{if(NET.ws&&NET.ws.readyState===1){NET.ws.send(JSON.stringify(o));return true}}catch(x){}return false};
 const myIdx=()=>NET.mode=='host'?0:1;
 NETFN.forEach(n=>{ORIG[n]=window[n];window[n]=(...a)=>{if(NET.mode=='guest'){netSend({t:'act',f:n,a});return}return ORIG[n](...a)}});
+{const c0=ORIG.chg;ORIG.chg=()=>{G.rdy=[false,false];c0()}}
 {const sd=ORIG.setDef;ORIG.setDef=n=>{if(NET.mode){G.ds=n;ready()}else sd(n)};window.setDef=(...a)=>{if(NET.mode=='guest'){netSend({t:'act',f:'setDef',a});return}return ORIG.setDef(...a)}}
+function setRoster(on,who){who=who||0;const r=G.rdy||(G.rdy=[false,false]);
+ if(on){const miss=OP.filter(p=>!G.lu[who][p]);if(miss.length){G.err=nm(who)+' still needs: '+miss.join(', ');render();return}
+  G.err='';r[who]=true;if(r[0]&&r[1]){G.rdy=[false,false];begin();return}}else r[who]=false;
+ render()}
 function netAct(m){if(NET.mode!='host'||!G)return;const f=m.f,a=Array.isArray(m.a)?m.a:[];if(!NETFN.includes(f))return;if(!a.every(x=>typeof x=='string'||typeof x=='number'))return;
  const ph=G.ph,po=G.po,g=1;let ok=false;
  switch(f){case 'go':case 'onside':ok=ph=='kick'&&po==g;break;
@@ -357,8 +362,8 @@ function netAct(m){if(NET.mode!='host'||!G)return;const f=m.f,a=Array.isArray(m.
   case 'choose':ok=ph=='cd'&&1-po==g&&(a[0]==1||a[0]==2);break;
   case 'setPos':ok=ph=='lineup'&&a[0]==g&&Number.isInteger(a[1])&&typeof a[2]=='string';break;
   case 'chg':ok=['kick','def','cov','off'].includes(ph);break;
-  case 'begin':ok=ph=='lineup';break}
- if(ok)ORIG[f](...a)}
+  case 'setRoster':ok=ph=='lineup'&&(a[0]===0||a[0]===1);break}
+ if(ok){if(f=='setRoster')ORIG[f](a[0],1);else ORIG[f](...a)}}
 function netBroadcast(){
  try{localStorage.setItem('sacpf_net_auto',JSON.stringify({code:NET.code,G:G,RL:RL}))}catch(x){}
  if(!NET.up)return;
@@ -401,7 +406,10 @@ function netDecorate(){const e=document.getElementById('app');if(!e)return;
   const m=myIdx();let wait='';
   if(G){const ph=G.ph,po=G.po,a=(ph=='kick'||ph=='off')?po:(ph=='def'||ph=='cd')?1-po:null,what={kick:'kick off',def:'choose a defensive setting',off:'call a play',cd:'decide on the return'}[ph];
    if(a!==null&&a!==m){wait=`<br><b>Waiting for ${nm(a)} to ${what}…</b>`;[...e.querySelectorAll('button')].forEach(b=>{if(/^(go|onside|setDef|sel_|pick|clr|choose)\(/.test(b.getAttribute('onclick')||''))b.disabled=true})}
-   if(ph=='lineup')[...e.querySelectorAll('select')].forEach(s=>{const k=(s.getAttribute('onchange')||'').match(/^setPos\((\d+),/);if(k&&+k[1]!==m)s.disabled=true});
+   if(ph=='lineup'){const rd=G.rdy||[false,false];
+    [...e.querySelectorAll('select')].forEach(s=>{const k=(s.getAttribute('onchange')||'').match(/^setPos\((\d+),/);if(k&&(+k[1]!==m||rd[m]))s.disabled=true});
+    const bb=[...e.querySelectorAll('button')].find(b=>(b.getAttribute('onclick')||'')=='begin()');
+    if(bb&&!(NET.mode=='host'&&!NET.peer))bb.outerHTML=`<button class=big onclick="setRoster(${rd[m]?0:1})">${rd[m]?'Roster set – tap to edit':'Set Roster'}</button><p><small>${nm(m)}: <b>${rd[m]?'ready':'not set'}</b> · ${nm(1-m)}: <b>${rd[1-m]?'ready':'not set'}</b>. The game starts when both players have set their roster.</small></p>`}
    if(ph=='over'&&NET.mode=='guest')[...e.querySelectorAll('button')].forEach(b=>{if(/^(start|G=null)/.test(b.getAttribute('onclick')||''))b.disabled=true});
    [...e.querySelectorAll('p')].forEach(p=>{const t=p.lastChild;if(t&&t.nodeType==3)t.textContent=t.textContent.replace(' Offense, look away!','')})}
   e.insertAdjacentHTML('afterbegin',`<div class=c style="background:#e8f1ff"><small>Two-device game <b>${NET.code||'…'}</b> · ${st}${G?' · you are <b>'+nm(m)+'</b>':''} · <a href="#" onclick="netLeave();return false">leave</a>${wait}</small></div>`)}}

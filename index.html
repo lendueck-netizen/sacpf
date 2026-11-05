@@ -307,23 +307,23 @@ function stHook(m){if(!G)return;const s=stI();
 {const p0=window.play;window.play=(k,w)=>{stI();ctx={active:true,po:G.po,k,who:w,qb:(G.lu[G.po]||{}).QB,kind:k=='run'?'rush':(k=='punt'||k=='fg')?k:'pass',down0:G.dn,comp:0,cy:0,fd:0,tdOff:0,inAdv:false};p0(k,w)}}
 {const k0=window.ko;window.ko=()=>{ctx={active:false};k0()}}
 {const e0=window.end;window.end=()=>{const c=ctx;if(c.active){c.active=false;
-  if(c.down0==3&&['rush','pass','scr','sack'].includes(c.kind)){const same=G.po==c.po&&G.dn==3&&G.ph!='kick'&&!c.fd&&!c.tdOff;if(!same){const T=stI().t[c.po];T.t3a++;if(c.fd||c.tdOff)T.t3c++}}}
+  if(c.down0==2&&['rush','pass','scr','sack'].includes(c.kind)){const same=G.po==c.po&&G.dn==2&&G.ph!='kick'&&!c.fd&&!c.tdOff;if(!same){const T=stI().t[c.po];T.t3a++;if(c.fd||c.tdOff)T.t3c++}}}
   e0()}}
 const stName=(i,k)=>{const t=tm(i),c=t.qb_passing[k]||t.backs[k]||t.receivers[k]||{};return c.name||k};
 const stMS=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
 const stAvg=(a,b)=>b?(a/b).toFixed(1):'–';
 function stHTML(){const s=G.st;const ttl=STV=='half'?'Halftime stats':STV=='final'?'Final stats':'Game stats so far';
- let h=`<div class=c style="border:2px solid #0c5a3a"><b class=big>${ttl}</b><div style="overflow-x:auto">`;
+ let h=`<style>.stp td,.stp th{text-align:center}.stp td:first-child,.stp th:first-child{text-align:left}.stp .stc td:first-child,.stp .stc th:first-child{text-align:center}</style><div class="c stp" style="border:2px solid #0c5a3a"><b class=big>${ttl}</b><div style="overflow-x:auto">`;
  if(!s){return h+'<p>No plays yet.</p></div><button onclick="STV=null;render()">Close</button></div>'}
  const half=STV=='half',nq=half?2:Math.max(1,Math.min(4,G.q)),qs=[];for(let q=1;q<=nq;q++)qs.push(q);
  h+=`<table><tr><th></th>${qs.map(q=>'<th>Q'+q+'</th>').join('')}<th>Total</th></tr>`+[0,1].map(i=>`<tr><td><b>${nm(i)}</b></td>${qs.map(q=>'<td>'+s.q[i][q-1]+'</td>').join('')}<td><b>${qs.reduce((a,q)=>a+s.q[i][q-1],0)}</b></td></tr>`).join('')+'</table>';
  const T=s.t,row=(l,f)=>`<tr><td>${f(0)}</td><td style="text-align:center"><b>${l}</b></td><td>${f(1)}</td></tr>`;
- h+=`<table style="margin-top:10px;width:100%"><tr><th>${nm(0)}</th><th></th><th>${nm(1)}</th></tr>`+
+ h+=`<table class=stc style="margin-top:10px;width:100%"><tr><th>${nm(0)}</th><th></th><th>${nm(1)}</th></tr>`+
   row('First downs',i=>T[i].fd)+row('Total net yards',i=>T[i].ry+T[i].py+T[i].sky)+
   row('Rushing (att-yds, avg)',i=>`${T[i].ra}-${T[i].ry}, ${stAvg(T[i].ry,T[i].ra)}`)+
   row('Passing (comp-att, yds)',i=>`${T[i].pc}-${T[i].pa}, ${T[i].py}`)+
   row('Sacked (times-yds)',i=>`${T[i].sk}-${Math.abs(T[i].sky)}`)+
-  row('3rd down',i=>`${T[i].t3c}/${T[i].t3a}`)+
+  row('2nd down',i=>`${T[i].t3c}/${T[i].t3a}`)+
   row('Penalties (no-yds)',i=>`${T[i].pen}-${T[i].peny}`)+
   row('Interceptions thrown',i=>T[i].int)+row('Fumbles lost',i=>T[i].fl)+row('Takeaways',i=>T[i].tka)+
   row('Punts (no, avg)',i=>`${T[i].pu}, ${stAvg(T[i].puy,T[i].pu)}`)+

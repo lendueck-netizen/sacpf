@@ -184,7 +184,14 @@ function autoLU(t){const used=new Set(),pick=l=>{const n=l.find(x=>!used.has(x))
  const lu={QB:qbs[0]};used.add(qbs[0]);lu.HB=pick(bk.filter(k=>has(t.backs,k,'HB')).concat(bk));lu.FB=pick(bk.filter(k=>has(t.backs,k,'FB')).concat(bk));
  for(const p of ['WB','SE','FL','TE'])lu[p]=pick(rc.filter(k=>has(t.receivers,k,p)).concat(bk.filter(k=>has(t.backs,k,p))).concat(rc));return lu}
 const YR={};['bc','sk'].forEach(k=>YR[k]=T[k].year||'');const LOGO0=Object.assign({},LOGO);
-function addTeam(k,j){T[k]=j;YR[k]=j.year||'';NM[k]=j.team||k;SN[k]=j.short||(NM[k].length<=11?NM[k].toUpperCase():NM[k].split(' ').pop().toUpperCase());LOGO[k]=j.logo||'';LU[k]=autoLU(j)}
+function fixKeys(j){const used=new Set();
+ for(const sec of ['qb_passing','backs','receivers']){const o=j[sec];if(!o)continue;const out={};
+  for(const k of Object.keys(o)){let nk=k;
+   if(!String(k).trim()||used.has(k)){const c=o[k]||{},b=String(c.name||'').trim().split(/\s+/).pop().replace(/[^A-Za-z'\-]/g,'')||'Player';nk=b;let i=2;while(used.has(nk)||out[nk]!==undefined||(j[sec]!==out&&o[nk]!==undefined&&nk!==k))nk=b+(i++);
+    if(sec=='qb_passing'&&j.qb_running&&k in j.qb_running){j.qb_running[nk]=j.qb_running[k];delete j.qb_running[k]}}
+   used.add(nk);out[nk]=o[k]}
+  j[sec]=out}}
+function addTeam(k,j){fixKeys(j);T[k]=j;YR[k]=j.year||'';NM[k]=j.team||k;SN[k]=j.short||(NM[k].length<=11?NM[k].toUpperCase():NM[k].split(' ').pop().toUpperCase());LOGO[k]=j.logo||'';LU[k]=autoLU(j)}
 let IMP={};try{IMP=JSON.parse(localStorage.getItem('sacpf_teams'))||{}}catch(x){}
 for(const k in IMP)try{addTeam(k,IMP[k])}catch(x){}
 let LOGOS={};try{LOGOS=JSON.parse(localStorage.getItem('sacpf_logos'))||{}}catch(x){}

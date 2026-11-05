@@ -29,7 +29,7 @@ function tag(n,lab,val){if(RL[n]){RL[n].lab=lab;RL[n].val=val}}
 function rollsHTML(i){const r=RL.filter(x=>x.team===i);return r.map(x=>`<div style="margin:3px 0"><span style="font-size:30px;line-height:1;${/DTC/.test(x.lab)?'color:#c0392b':''}">${DF[x.d[0]-1]}${DF[x.d[1]-1]}</span> <b>${x.t}</b> <small>${x.lab}${x.val?': '+x.val:''}</small></div>`).join('')||'<small style="opacity:.6">—</small>'}
 const pr=s=>{s=String(s);const m=s.match(/-?\d+/);return{n:m?+m[0]:0,td:s.includes('TD'),f:/\dF$/.test(s),p:/\dP$/.test(s)}};
 let G=null;
-const tm=i=>T[G.tm[i]],O=()=>tm(G.po),Df=()=>tm(1-G.po),nm=i=>{const k=G.tm[i],o=G.tm[1-i];return NM[k]+(NM[k]==NM[o]&&YR[k]?' ('+YR[k]+')':'')},L=m=>G.log.unshift(m);
+const tm=i=>T[G.tm[i]],O=()=>tm(G.po),Df=()=>tm(1-G.po),nm=i=>{const k=G.tm[i],o=G.tm[1-i];return NM[k]+(NM[k]==NM[o]&&YR[k]?' ('+YR[k]+')':'')},L=m=>{G.log.unshift(m);if(window.stHook)stHook(m)};
 const card=(t,n)=>t.backs[n]||t.receivers[n];
 function start(){G={tm:[PICK[0],PICK[1]],sc:[0,0],q:1,clk:900,po:0,pos:0,dn:1,tg:10,hist:[],log:[],ph:'lineup',ds:null,lu:[{...LU[PICK[0]]},{...LU[PICK[1]]}],hurt:[{},{}]};
  G.k1=Math.random()<.5?0:1;G.po=G.k1;L(`Coin flip: ${nm(1-G.k1)} receives.`);RL=[];G.inj=[0,1].map(i=>carry(G.tm[i]));fixLU();render()}
@@ -98,14 +98,14 @@ function snap(k,who){const o=O(),dd=Df(),ix={S:0,M:1,L:2}[k],run=k=='run',n0=RL.
   if(r.f&&G.pos+r.n<110&&G.pos+r.n>0&&fum(G.pos+r.n))return;adv(r.n);return}
  const qn=G.lu[G.po].QB,q=o.qb_passing[qn],qr=o.qb_running[qn],rc=card(o,who).rec;
  if(flag=='P'){const n=PB.penalty_chart.rows[r2(1-G.po,'Penalty chart (defense)',t=>{const q=PB.penalty_chart.rows[t][3];return q+' '+PB.penalties[q].name})][3];
-  if(n==14){const g=pr(rc[r2(G.po,who+' '+'SML'[ix],t=>rc[t][ix])][ix]).n;L('Pass interference: pass complete, automatic first down.');
+  if(n==14){const g=pr(rc[r2(G.po,who+' '+'SML'[ix],t=>rc[t][ix])][ix]).n;ctx.pi=g;L('Pass interference: pass complete, automatic first down.');
    G.pos+=g;if(G.pos>110)return td(G.po);G.pos=Math.min(G.pos,109);G.dn=1;G.tg=Math.min(10,110-G.pos);return}
   if(ROUGH.has(n))RY=PB.penalties[n];else{pen('d',3,n);return}}
  let rr=wht;const rush=q.rush[wht];if(flag=='X'||flag=='R')tag(n0+1,qn+' pass rush '+'SML'[ix],rush.join(' '));
  if(flag=='X'&&rush[ix].includes('X')){icpt(ix,rc);return}
  if(flag=='R'&&rush[ix].includes('R')){const sb=rush[3];
-  if(sb=='RUN'){const raw=qr[r2(G.po,qn+' scramble run, column 5',t=>qr[t][4])][4],e=pr(raw);if(/\dN/.test(raw))injure('run',qn,qn);L(`QB rushed, scrambles for ${e.n}.`);adv(e.td?110:e.n)}
-  else{const e=pr(sb);L(`SACK for ${e.n}.`);if(e.f&&fum(G.pos+e.n))return;adv(e.n)}return}
+  if(sb=='RUN'){ctx.kind='scr';const raw=qr[r2(G.po,qn+' scramble run, column 5',t=>qr[t][4])][4],e=pr(raw);if(/\dN/.test(raw))injure('run',qn,qn);L(`QB rushed, scrambles for ${e.n}.`);adv(e.td?110:e.n)}
+  else{const e=pr(sb);ctx.kind='sack';ctx.sy=e.n;L(`SACK for ${e.n}.`);if(e.f&&fum(G.pos+e.n))return;adv(e.n)}return}
  let nrr=n0+1;if(flag=='X'||flag=='R'){nrr=RL.length;rr=r2(G.po,qn)}
  const e=set<=0?PB.setting_0[rr][1]:set>=6?PB.setting_6[rr][1]:q.passing[rr][set-1];
  L(`Pass result: ${e||'incomplete'}`);tag(nrr,`${qn} ${set<=0?'Setting 0 column':set>=6?'Setting 6 column':'column '+set}`,e||'incomplete');if(e=='N'||e=='CN')injure('pass',who,qn);
@@ -113,7 +113,7 @@ function snap(k,who){const o=O(),dd=Df(),ix={S:0,M:1,L:2}[k],run=k=='run',n0=RL.
  if(e.includes('P')&&!e.includes('C')){pen('o',2);return}
  if(!e.includes('C')){adv(0);return}
  if(e=='CP'){pen('o',2);return}
- const v=rc[r2(G.po,who+' '+'SML'[ix],t=>rc[t][ix])][ix],g=pr(v);L(`Complete: ${v}`);if(g.td){adv(110);return}
+ const v=rc[r2(G.po,who+' '+'SML'[ix],t=>rc[t][ix])][ix],g=pr(v);L(`Complete: ${v}`);ctx.comp=1;ctx.cy=g.n;if(g.td){adv(110);return}
  if(g.f&&fum(G.pos+g.n))return;adv(g.n)}
 function qend(){L(`End of quarter ${G.q}.`);if(G.q>=4){G.ph='over';save();return}G.q++;G.clk=900;G.inj.forEach(o=>{for(const k in o){const e=o[k];if(e.scope=='quarter'||(e.scope=='half'&&G.q==3))delete o[k]}});
  if(G.q==3){G.po=1-G.k1;G.dn=1;G.tg=10;G.hist=[];G.ph='kick';L('Second half kickoff.')}}
@@ -263,8 +263,81 @@ function loadText(txt){let o;try{o=JSON.parse(txt)}catch(x){return 'That file co
  G=o.G;RL=Array.isArray(o.RL)?o.RL:[];PICK[0]=G.tm[0];PICK[1]=G.tm[1];G.err='';return 'Loaded: '+nm(0)+' vs '+nm(1)+'.'}
 function loadGame(f){if(!f)return;const r=new FileReader();r.onload=()=>{LMSG=loadText(r.result);render()};r.readAsText(f)}
 function loadPasted(){const t=document.getElementById('pasteSave');if(t&&t.value.trim()){LMSG=loadText(t.value);render()}}
-const saveBox=()=>'<div class=c><button onclick="saveGame()">Save game</button> <small>Saves this game to a file you can send to a friend or open later.</small>'+(LMSG?'<p><b>'+LMSG+'</b></p>':'')+(SAVETXT?'<details><summary>Copy the save as text</summary><textarea readonly style="width:100%;height:80px" onclick="this.select()">'+SAVETXT.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea></details>':'')+'</div>';
+const saveBox=()=>'<div class=c><button onclick="STV=\'view\';render()">Game stats</button> <button onclick="saveGame()">Save game</button> <small>Saves this game to a file you can send to a friend or open later.</small>'+(LMSG?'<p><b>'+LMSG+'</b></p>':'')+(SAVETXT?'<details><summary>Copy the save as text</summary><textarea readonly style="width:100%;height:80px" onclick="this.select()">'+SAVETXT.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea></details>':'')+'</div>';
 const loadBox=()=>'<div class=c><b>Load a saved game</b><p>Pick a save file made by "Save game". It brings back the score, clock, field position, lineups and injuries exactly as they were.</p><input type="file" accept=".json,application/json" onchange="loadGame(this.files[0])"><details><summary>Or paste the save as text</summary><textarea id=pasteSave style="width:100%;height:60px"></textarea><br><button onclick="loadPasted()">Load pasted text</button></details>'+(LMSG?'<p><b>'+LMSG+'</b></p>':'')+'</div>';
+
+/* ---- game statistics ---- */
+let ctx={active:false},STV=null;const STSEEN={};
+const stT=()=>({fd:0,ra:0,ry:0,pa:0,pc:0,py:0,int:0,sk:0,sky:0,fl:0,pen:0,peny:0,pu:0,puy:0,fga:0,fgm:0,xpa:0,xpm:0,t3a:0,t3c:0,td:0,tka:0});
+const stI=()=>{if(!G.st)G.st={id:Math.random().toString(36).slice(2),q:[[0,0,0,0],[0,0,0,0]],t:[stT(),stT()],p:[{},{}],top:[0,0]};return G.st};
+const stP=(i,k)=>{const P=stI().p[i];return P[k]||(P[k]={ra:0,ry:0,rl:0,rtd:0,tg:0,rc:0,cy:0,cl:0,ctd:0,pa:0,pc:0,py:0,ptd:0,pi:0,sk:0,sky:0,fl:0})};
+function stHook(m){if(!G)return;const s=stI();
+ if(m==='First down.'){if(ctx.active){s.t[G.po].fd++;ctx.fd=1}return}
+ if(/^Pass interference/.test(m)){if(ctx.active){const T=s.t[1-G.po];T.pen++;T.peny+=ctx.pi||0;s.t[G.po].fd++;ctx.fd=1}return}
+ if(/^Penalty on /.test(m)){let rest=m.slice(11),side=null;
+  if(rest.startsWith('offense:'))side=G.po;else if(rest.startsWith('defense:'))side=1-G.po;
+  else for(const i of [0,1]){const n=nm(i);if(rest.startsWith(n+':')||rest.startsWith(n+' (the recovering team):'))side=i}
+  if(side===null)return;const y=(m.match(/(\d+) yds/)||[0,0])[1];s.t[side].pen++;s.t[side].peny+=+y}}
+{const sc0=window.sc;window.sc=(i,p)=>{sc0(i,p);stI().q[i][Math.min(3,G.q-1)]+=p}}
+{const t0=window.td;window.td=i=>{stI().t[i].td++;const c=ctx;if(c.active&&i==c.po){c.tdOff=1;if(c.inAdv){if(c.kind=='rush')stP(i,c.who).rtd++;else if(c.kind=='scr')stP(i,c.qb).rtd++;else if(c.kind=='pass'&&c.comp){stP(i,c.who).ctd++;stP(i,c.qb).ptd++}}}t0(i)}}
+{const x0=window.xp;window.xp=i=>{const s0=G.sc[i];x0(i);const T=stI().t[i];T.xpa++;if(G.sc[i]>s0)T.xpm++}}
+{const g0=window.fg;window.fg=()=>{const po=G.po,s0=G.sc[po];g0();const T=stI().t[po];T.fga++;if(G.sc[po]-s0==3)T.fgm++}}
+{const w0=window.away;window.away=(d,rc,cd)=>{if(ctx.active&&ctx.k=='punt'&&!cd){const T=stI().t[G.po];T.pu++;T.puy+=d}w0(d,rc,cd)}}
+{const a0=window.adv;window.adv=g=>{const p0=G.pos,po=G.po,sc0=G.sc[po],c=ctx;let pen=0;
+  if(c.active&&RY&&p0+g<110)pen=Math.min(RY.yards||0,Math.floor((110-p0-g)/2));
+  c.inAdv=true;a0(g);c.inAdv=false;if(!c.active)return;
+  const td_=G.sc[po]-sc0>=6;let y;
+  if(td_)y=110-p0;else if(G.ph=='kick'&&G.pos<=0)y=-p0;else if(G.po==po)y=G.pos-p0-pen;else y=(110-G.pos)-p0-pen;
+  const s=stI(),T=s.t[po];
+  if(c.kind=='rush'||c.kind=='scr'){const k=c.kind=='scr'?c.qb:c.who,P=stP(po,k);T.ra++;T.ry+=y;P.ra++;P.ry+=y;P.rl=Math.max(P.rl,y)}
+  else if(c.kind=='sack'){T.sk++;T.sky+=y;const P=stP(po,c.qb);P.sk++;P.sky+=y}
+  else if(c.kind=='pass'){const Q=stP(po,c.qb),R=stP(po,c.who);T.pa++;Q.pa++;R.tg++;
+   if(c.comp){T.pc++;T.py+=y;Q.pc++;Q.py+=y;R.rc++;R.cy+=y;R.cl=Math.max(R.cl,y)}}}}
+{const f0=window.fum;window.fum=spot=>{const po=G.po,c=ctx,r=f0(spot);
+  if(r){const s=stI();s.t[po].fl++;s.t[1-po].tka++;
+   if(c.active&&c.po===po){const T=s.t[po];
+    if(c.kind=='rush'){stP(po,c.who).fl++;T.ra++;stP(po,c.who).ra++}
+    else if(c.kind=='scr'){stP(po,c.qb).fl++;T.ra++;stP(po,c.qb).ra++}
+    else if(c.kind=='sack'){const Q=stP(po,c.qb);Q.fl++;Q.sk++;T.sk++;Q.sky+=c.sy||0;T.sky+=c.sy||0}
+    else if(c.kind=='pass'){if(c.comp){const Q=stP(po,c.qb),R=stP(po,c.who);Q.pa++;Q.pc++;Q.py+=c.cy||0;R.tg++;R.rc++;R.cy+=c.cy||0;R.fl++;T.pa++;T.pc++;T.py+=c.cy||0}else stP(po,c.qb).fl++}}}
+  return r}}
+{const i0=window.icpt;window.icpt=(ix,rc)=>{const po=G.po,c=ctx;i0(ix,rc);const s=stI();s.t[po].int++;s.t[1-po].tka++;
+  if(c.active&&c.po===po){s.t[po].pa++;const Q=stP(po,c.qb);Q.pa++;Q.pi++;stP(po,c.who).tg++}}}
+{const sp0=window.spend;window.spend=n=>{const c0=G.clk;sp0(n);if(ctx.active&&typeof ctx.po=='number')stI().top[ctx.po]+=c0-G.clk}}
+{const p0=window.play;window.play=(k,w)=>{stI();ctx={active:true,po:G.po,k,who:w,qb:(G.lu[G.po]||{}).QB,kind:k=='run'?'rush':(k=='punt'||k=='fg')?k:'pass',down0:G.dn,comp:0,cy:0,fd:0,tdOff:0,inAdv:false};p0(k,w)}}
+{const k0=window.ko;window.ko=()=>{ctx={active:false};k0()}}
+{const e0=window.end;window.end=()=>{const c=ctx;if(c.active){c.active=false;
+  if(c.down0==3&&['rush','pass','scr','sack'].includes(c.kind)){const same=G.po==c.po&&G.dn==3&&G.ph!='kick'&&!c.fd&&!c.tdOff;if(!same){const T=stI().t[c.po];T.t3a++;if(c.fd||c.tdOff)T.t3c++}}}
+  e0()}}
+const stName=(i,k)=>{const t=tm(i),c=t.qb_passing[k]||t.backs[k]||t.receivers[k]||{};return c.name||k};
+const stMS=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+const stAvg=(a,b)=>b?(a/b).toFixed(1):'–';
+function stHTML(){const s=G.st;const ttl=STV=='half'?'Halftime stats':STV=='final'?'Final stats':'Game stats so far';
+ let h=`<div class=c style="border:2px solid #0c5a3a"><b class=big>${ttl}</b><div style="overflow-x:auto">`;
+ if(!s){return h+'<p>No plays yet.</p></div><button onclick="STV=null;render()">Close</button></div>'}
+ const half=STV=='half',nq=half?2:Math.max(1,Math.min(4,G.q)),qs=[];for(let q=1;q<=nq;q++)qs.push(q);
+ h+=`<table><tr><th></th>${qs.map(q=>'<th>Q'+q+'</th>').join('')}<th>Total</th></tr>`+[0,1].map(i=>`<tr><td><b>${nm(i)}</b></td>${qs.map(q=>'<td>'+s.q[i][q-1]+'</td>').join('')}<td><b>${qs.reduce((a,q)=>a+s.q[i][q-1],0)}</b></td></tr>`).join('')+'</table>';
+ const T=s.t,row=(l,f)=>`<tr><td>${f(0)}</td><td style="text-align:center"><b>${l}</b></td><td>${f(1)}</td></tr>`;
+ h+=`<table style="margin-top:10px;width:100%"><tr><th>${nm(0)}</th><th></th><th>${nm(1)}</th></tr>`+
+  row('First downs',i=>T[i].fd)+row('Total net yards',i=>T[i].ry+T[i].py+T[i].sky)+
+  row('Rushing (att-yds, avg)',i=>`${T[i].ra}-${T[i].ry}, ${stAvg(T[i].ry,T[i].ra)}`)+
+  row('Passing (comp-att, yds)',i=>`${T[i].pc}-${T[i].pa}, ${T[i].py}`)+
+  row('Sacked (times-yds)',i=>`${T[i].sk}-${Math.abs(T[i].sky)}`)+
+  row('3rd down',i=>`${T[i].t3c}/${T[i].t3a}`)+
+  row('Penalties (no-yds)',i=>`${T[i].pen}-${T[i].peny}`)+
+  row('Interceptions thrown',i=>T[i].int)+row('Fumbles lost',i=>T[i].fl)+row('Takeaways',i=>T[i].tka)+
+  row('Punts (no, avg)',i=>`${T[i].pu}, ${stAvg(T[i].puy,T[i].pu)}`)+
+  row('Field goals',i=>`${T[i].fgm}/${T[i].fga}`)+row('Converts',i=>`${T[i].xpm}/${T[i].xpa}`)+
+  row('Touchdowns',i=>T[i].td)+row('Time of possession',i=>stMS(s.top[i]))+'</table>';
+ for(const i of [0,1]){const P=s.p[i],ks=Object.keys(P),sec=(title,head,rows)=>rows.length?`<p style="margin:10px 0 2px"><b>${nm(i)} – ${title}</b></p><table><tr>${head.map(x=>'<th>'+x+'</th>').join('')}</tr>${rows.join('')}</table>`:'';
+  h+=sec('Passing',['Player','C/A','Yds','TD','Int','Sacked'],ks.filter(k=>P[k].pa||P[k].sk).map(k=>`<tr><td>${stName(i,k)}</td><td>${P[k].pc}/${P[k].pa}</td><td>${P[k].py}</td><td>${P[k].ptd}</td><td>${P[k].pi}</td><td>${P[k].sk}-${Math.abs(P[k].sky)}</td></tr>`));
+  h+=sec('Rushing',['Player','Att','Yds','Avg','Long','TD'],ks.filter(k=>P[k].ra).sort((a,b)=>P[b].ry-P[a].ry).map(k=>`<tr><td>${stName(i,k)}</td><td>${P[k].ra}</td><td>${P[k].ry}</td><td>${stAvg(P[k].ry,P[k].ra)}</td><td>${P[k].rl}</td><td>${P[k].rtd}</td></tr>`));
+  h+=sec('Receiving',['Player','Tgt','Rec','Yds','Avg','Long','TD'],ks.filter(k=>P[k].tg).sort((a,b)=>P[b].cy-P[a].cy).map(k=>`<tr><td>${stName(i,k)}</td><td>${P[k].tg}</td><td>${P[k].rc}</td><td>${P[k].cy}</td><td>${stAvg(P[k].cy,P[k].rc)}</td><td>${P[k].cl}</td><td>${P[k].ctd}</td></tr>`))}
+ return h+'</div><p><button onclick="STV=null;render()">Close</button></p></div>'}
+function stAuto(){if(!G||!G.st)return;const id=G.st.id;
+ if(G.ph=='over'){if(!STSEEN[id+'f']){STSEEN[id+'f']=1;STV='final'}}
+ else if(G.q==3&&G.clk>=900&&!STSEEN[id+'h']){STSEEN[id+'h']=1;STV='half'}}
+{const r0=window.render;window.render=function(){stAuto();r0();if(G&&STV){const e=document.getElementById('app');if(e)e.insertAdjacentHTML('afterbegin',stHTML())}}}
 
 /* ---- two-device play (active only on the hosted site) ---- */
 const NETON=window.SACPF_NET===true;

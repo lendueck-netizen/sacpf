@@ -28,7 +28,7 @@ function r2(team,lab,fn){const a=d6(),b=d6(),t=a+b;let v='';try{if(fn)v=String(f
 function tag(n,lab,val){if(RL[n]){RL[n].lab=lab;RL[n].val=val}}
 function rollsHTML(i){const r=RL.filter(x=>x.team===i);return r.map(x=>`<div style="margin:3px 0"><span style="font-size:30px;line-height:1;${/DTC/.test(x.lab)?'color:#c0392b':''}">${DF[x.d[0]-1]}${DF[x.d[1]-1]}</span> <b>${x.t}</b> <small>${x.lab}${x.val?': '+x.val:''}</small></div>`).join('')||'<small style="opacity:.6">—</small>'}
 const pr=s=>{s=String(s);const m=s.match(/-?\d+/);return{n:m?+m[0]:0,td:s.includes('TD'),f:/\dF$/.test(s),p:/\dP$/.test(s)}};
-let G=null;
+let G=null,RST=false;function rstAsk(){RST=true;render()}function rstNo(){RST=false;render()}function rstGo(){RST=false;G=null;RL=[];STV=null;render()}
 const tm=i=>T[G.tm[i]],O=()=>tm(G.po),Df=()=>tm(1-G.po),nm=i=>{const k=G.tm[i],o=G.tm[1-i];return NM[k]+(NM[k]==NM[o]&&YR[k]?' ('+YR[k]+')':'')},L=m=>{G.log.unshift(m);if(window.stHook)stHook(m)};
 const card=(t,n)=>t.backs[n]||t.receivers[n];
 function start(){G={tm:[PICK[0],PICK[1]],sc:[0,0],q:1,clk:900,po:0,pos:0,dn:1,tg:10,hist:[],log:[],ph:'lineup',ds:null,lu:[{...LU[PICK[0]]},{...LU[PICK[1]]}],hurt:[{},{}]};
@@ -125,6 +125,7 @@ function onside(){RL=[];const k=G.po,r=1-k,row=tm(k).punt_kickoff.kickoff[r2(k,'
  if(rec)G.pos=spot;else{G.po=r;G.pos=110-spot}G.dn=1;G.tg=10;G.hist=[];G.ph='def';G.ds=null;G.sf=0;render()}
 function choose(c){const p=G.pend;G.pend=null;G.ph='def';G.ds=null;PK=p.pk;away(p.d,p.rc,c);if(G.clk<=0&&G.ph!='over')qend();render()}
 function setDef(n){G.ds=n;G.ph='cov';render()}
+function redoDef(){if(!G||(G.ph!='cov'&&G.ph!='off'))return;G.ph='def';G.ds=null;G.sel=SEL0();render()}
 const blk=key=>{const h=G.hist.slice(-2);return h.length==2&&h[0]==key&&h[1]==key};
 function opts(){const o=O(),lu=G.lu[G.po],a=[],nmz={S:'Short',M:'Medium',L:'Long'};
  for(const p of ['HB','FB','WB','SE','FL','TE']){const n=lu[p],c=card(o,n);
@@ -191,11 +192,12 @@ function fixKeys(j){const used=new Set();
     if(sec=='qb_passing'&&j.qb_running&&k in j.qb_running){j.qb_running[nk]=j.qb_running[k];delete j.qb_running[k]}}
    used.add(nk);out[nk]=o[k]}
   j[sec]=out}}
-function addTeam(k,j){fixKeys(j);T[k]=j;YR[k]=j.year||'';NM[k]=j.team||k;SN[k]=j.short||(NM[k].length<=11?NM[k].toUpperCase():NM[k].split(' ').pop().toUpperCase());LOGO[k]=j.logo||'';LU[k]=autoLU(j)}
+function addTeam(k,j){fixKeys(j);T[k]=j;YR[k]=j.year||'';NM[k]=j.team||k;SN[k]=j.short||(NM[k].length<=11?NM[k].toUpperCase():NM[k].split(' ').pop().toUpperCase());LOGO[k]=j.logo||LOGO[k]||LOGO0[k]||'';LU[k]=autoLU(j)}
 let IMP={};try{IMP=JSON.parse(localStorage.getItem('sacpf_teams'))||{}}catch(x){}
 for(const k in IMP)try{addTeam(k,IMP[k])}catch(x){}
 let LOGOS={};try{LOGOS=JSON.parse(localStorage.getItem('sacpf_logos'))||{}}catch(x){}
-for(const k in LOGOS)if(T[k])LOGO[k]=LOGOS[k];
+for(const k in LOGOS)if(T[k]&&LOGOS[k])LOGO[k]=LOGOS[k];
+for(const k in LOGO0)if(!LOGO[k])LOGO[k]=LOGO0[k];
 function saveLogos(){try{localStorage.setItem('sacpf_logos',JSON.stringify(LOGOS));return true}catch(x){return false}}
 function setLogo(i,f){if(!f)return;const k=PICK[i],r=new FileReader();
  r.onload=()=>{const im=new Image();im.onload=()=>{const W0=im.naturalWidth||im.width||150,H0=im.naturalHeight||im.height||150,s=Math.min(1,260/Math.max(W0,H0)),w=Math.max(1,Math.round(W0*s)),h=Math.max(1,Math.round(H0*s)),c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);setLogoUrl(k,c.toDataURL('image/png'))};
@@ -300,14 +302,14 @@ function qbRun(s,avg){const tc=avg?0:s.tc,n=Math.max(tc-1,0),ax=tc>1?(s.yds-s.lg
  const mk=Array.from({length:11},()=>Array(5).fill(''));mk[5][2]='N';mk[5][3]='A';[[2,0],[8,4],[0,1]].forEach(([r,k])=>{mk[r][k]='P'});
  const run={},chg=[];for(let r=0;r<11;r++){run[r+2]=num[r].map((v,k)=>(r==10&&k==4&&top>=65)?'-TD-':v+mk[r][k]);chg.push(num[r].map((v,k)=>v-base[r][k]))}
  return {run,chg}}
-let CP={kind:'rb',att:'',comp:'',int:'',team:'',name:'',pos:'HB',rpos:'SE',tc:'',yds:'',lg:'',td:'',no:'',ryds:'',rlg:'',ok:false,msg:''};
+let CP={xmsg:'',kind:'rb',att:'',comp:'',int:'',team:'',name:'',pos:'HB',rpos:'SE',tc:'',yds:'',lg:'',td:'',no:'',ryds:'',rlg:'',ok:false,msg:''};
 function cpS(){const f=k=>Math.max(0,parseFloat(CP[k])||0);return {kind:CP.kind,att:f('att'),comp:f('comp'),int:f('int'),name:CP.name.trim(),pos:CP.kind=='wr'?CP.rpos:CP.pos,tc:f('tc'),yds:parseFloat(CP.yds)||0,lg:f('lg'),td:f('td'),no:f('no'),ryds:f('ryds'),rlg:f('rlg')}}
 function cpPrev(){const s=cpS(),el=document.getElementById('cpPrev');if(!el)return;
  const {w,e}=cpWarn(s);let h='';
  if(s.kind=='qb'){if(s.att>=1){const q=qbPass(s),c=qbRun(s),b=qbRun({},1);
   h+=`<p>Passing: the card completes about <b>${q.comp}%</b> of passes (aim ${q.tg.toFixed(1)}%) and uses an interception pattern like a quarterback at about <b>${q.int}%</b> interceptions.</p><table style="border-collapse:collapse;text-align:center;font-size:13px"><tr><th>Roll</th>${[1,2,3,4,5].map(x=>'<th style="padding:2px 8px">Col '+x+'</th>').join('')}<th style="padding:2px 14px">Run: 1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>`;
   for(let r=2;r<=12;r++)h+=`<tr><td>${r}</td>${q.passing[r].map(v=>`<td style="padding:2px 8px">${v||'&middot;'}</td>`).join('')}${c.run[r].map((v,k)=>{const d=c.chg[r-2][k];return `<td style="padding:2px 8px;${d?'font-weight:700;':''}">${v}${d?` <small>(${d>0?'+':''}${d})</small>`:''}</td>`}).join('')}</tr>`;
-  h+='</table><p>C = completion, blank = incomplete. The running columns show changes from the average quarterback running card in bold. Passing yards and TDs are not stored on a card; yards come from the receivers.</p>'}
+  h+='</table><p><b>Pass rush table</b> (taken from the real quarterback with the closest interception rate):</p><table style="border-collapse:collapse;text-align:center;font-size:13px"><tr><th>Roll</th><th style="padding:2px 10px">Short</th><th style="padding:2px 10px">Medium</th><th style="padding:2px 10px">Long</th><th style="padding:2px 10px">Sack / scramble</th></tr>'+[2,3,4,5,6,7,8,9,10,11,12].map(r=>`<tr><td>${r}</td>${q.rush[r].map(v=>`<td style="padding:2px 10px">${v||'&middot;'}</td>`).join('')}</tr>`).join('')+'</table><p>X = interception chance, R = pass rush (sack or scramble), blank = no effect. C = completion, blank = incomplete. The running columns show changes from the average quarterback running card in bold. Passing yards and TDs are not stored on a card; yards come from the receivers.</p>'}
   h+=e.concat(w).map(x=>`<p style="color:#b45309">⚠ ${x}</p>`).join('')+`<button onclick="cpAdd()" ${e.length?'disabled':''}>${w.length?'Add anyway':'Add player'}</button> <span>${CP.msg}</span>`;el.innerHTML=h;return}
  if(s.kind=='wr'){if(s.no>=1){const c=rcGen({no:s.no,ryds:s.ryds,lg:s.rlg,td:s.td}),b=rcGen({},1),nm=['Short','Medium','Long'];
   h+=`<p>Changes from the average receiver card are in <b>bold</b> with the difference. ${c.use[2]?'':'This card has no Long column because the longest catch is under 33 yards. '}${c.use[1]?'':'This card has only a Short column. '}</p><table style="border-collapse:collapse;text-align:center;font-size:13px"><tr><th>Roll</th>${nm.map(x=>'<th style="padding:2px 8px">'+x+'</th>').join('')}</tr>`;
@@ -338,10 +340,54 @@ function cpAdd(){const s=cpS(),{e}=cpWarn(s);if(e.length)return;const k=CP.team|
  const bad=checkTeam(t);if(bad.length){CP.msg='Could not add: '+bad[0];cpPrev();return}
  addTeam(k,t);IMP[k]=t;try{localStorage.setItem('sacpf_teams',JSON.stringify(IMP))}catch(x){}
  CP.msg='Added '+s.name+' to '+NM[k]+'.';CP.name='';render()}
+
+function cpAll(){const out=[];for(const k in T){const t=T[k];
+ for(const n in t.backs)if(t.backs[n].custom)out.push({k,kind:'rb',key:n,card:t.backs[n]});
+ for(const n in t.receivers)if(t.receivers[n].custom)out.push({k,kind:'wr',key:n,card:t.receivers[n]});
+ for(const n in t.qb_passing)if(t.qb_passing[n].custom)out.push({k,kind:'qb',key:n,card:t.qb_passing[n],run:t.qb_running[n]})}return out}
+function cpSave(k,t){addTeam(k,t);IMP[k]=t;try{localStorage.setItem('sacpf_teams',JSON.stringify(IMP))}catch(x){}}
+function cpDel(k,kind,key){const t=JSON.parse(JSON.stringify(T[k]));
+ if(kind=='rb')delete t.backs[key];else if(kind=='wr')delete t.receivers[key];else{delete t.qb_passing[key];delete t.qb_running[key]}
+ const bad=checkTeam(t);if(bad.length){CP.xmsg='Cannot remove him: the team would be missing '+bad[0]+'.';render();return}
+ cpSave(k,t);CP.xmsg='Removed.';render()}
+async function cpExport(){const list=cpAll();if(!list.length){CP.xmsg='There are no custom players to export yet.';render();return}
+ const o={sacpf_custom_players:1,saved:new Date().toISOString(),players:list.map(x=>({team:NM[x.k],year:YR[x.k],kind:x.kind,key:x.key,card:x.card,run:x.run||null}))},txt=JSON.stringify(o),fn='sacpf_custom_players.json';let dl=null;
+ try{dl=(window.claude&&claude.use)?await claude.use('downloads'):null}catch(x){dl=null}
+ if(dl){try{await dl.save({filename:fn,data:txt});CP.xmsg='Exported '+list.length+' player'+(list.length==1?'':'s')+' as '+fn+'.'}catch(x){CP.xmsg='The export was not completed.'}}
+ else try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'application/json'}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);CP.xmsg='Exported '+list.length+' player'+(list.length==1?'':'s')+' as '+fn+'. Check your Downloads folder.'}catch(x){CP.xmsg='Your browser would not download the file.'}
+ render()}
+function cpImportText(txt){let o;try{o=JSON.parse(txt)}catch(x){return 'That file could not be read.'}
+ if(!o||!o.sacpf_custom_players||!Array.isArray(o.players))return 'That is not a custom players file.';
+ const added=[],skipped=[],dup=[];
+ for(const p of o.players){if(!p||!p.card||!['rb','wr','qb'].includes(p.kind)){continue}
+  const k=Object.keys(T).find(x=>NM[x]==p.team&&String(YR[x])==String(p.year));
+  if(!k){const w=p.team+(p.year?' ('+p.year+')':'');if(!skipped.includes(w))skipped.push(w);continue}
+  const t=JSON.parse(JSON.stringify(T[k])),nm=p.card.name||p.key;
+  const same=(o2)=>Object.values(o2).some(c=>c.custom&&(c.name||'')==nm&&JSON.stringify(c.run||c.rec||c.passing)==JSON.stringify(p.card.run||p.card.rec||p.card.passing));
+  if(same(p.kind=='rb'?t.backs:p.kind=='wr'?t.receivers:t.qb_passing)){dup.push(nm);continue}
+  let key=p.key||'Custom',b=key,i=2;const used=()=>key in t.backs||key in t.receivers||key in t.qb_passing;while(used())key=b+(i++);
+  if(p.kind=='rb')t.backs[key]=p.card;else if(p.kind=='wr')t.receivers[key]=p.card;else{if(!p.run)continue;t.qb_passing[key]=p.card;t.qb_running[key]=p.run}
+  const bad=checkTeam(t);if(bad.length){skipped.push(nm+' ('+bad[0]+')');continue}
+  cpSave(k,t);added.push(nm+' ('+NM[k]+')')}
+ let m=added.length?'Added: '+added.join(', ')+'. ':'No new players were added. ';
+ if(dup.length)m+='Already here: '+dup.join(', ')+'. ';
+ if(skipped.length)m+='Skipped, team not loaded here: '+skipped.join(', ')+'.';return m}
+function cpDedupe(){const seen=new Set();let n=0;
+ for(const k of Object.keys(T)){const t=JSON.parse(JSON.stringify(T[k]));let ch=false;
+  const sig=(kind,c,run)=>k+'|'+kind+'|'+(c.name||'')+'|'+JSON.stringify(c.run||c.rec||c.passing)+JSON.stringify(run||'');
+  for(const kind of ['backs','receivers','qb_passing'])for(const key of Object.keys(t[kind])){const c=t[kind][key];if(!c.custom)continue;
+   const s=sig(kind,c,kind=='qb_passing'?t.qb_running[key]:null);
+   if(seen.has(s)){delete t[kind][key];if(kind=='qb_passing')delete t.qb_running[key];ch=true;n++}else seen.add(s)}
+  if(ch&&!checkTeam(t).length)cpSave(k,t)}
+ CP.xmsg=n?'Removed '+n+' duplicate'+(n==1?'':'s')+'.':'No duplicates found.';render()}
+function cpImport(f){if(!f)return;const r=new FileReader();r.onload=()=>{CP.xmsg=cpImportText(r.result);render()};r.readAsText(f)}
+function cpList(){const l=cpAll(),lab={rb:'Running back',wr:'Receiver',qb:'Quarterback'};
+ return `<p><b>Your custom players</b></p>${l.length?'<ul style="margin:4px 0;padding-left:18px">'+l.map(x=>`<li>${x.card.name||x.key} (${lab[x.kind]}, ${NM[x.k]}${YR[x.k]?' '+YR[x.k]:''}) <button onclick="cpDel('${x.k}','${x.kind}','${x.key.replace(/'/g,"\\'")}')">Remove</button></li>`).join('')+'</ul>':'<p>None yet.</p>'}
+ <p><button onclick="cpDedupe()">Remove duplicates</button> </p><p><button onclick="cpExport()">Export custom players</button> Load from a file: <input type="file" accept=".json,application/json" onchange="cpImport(this.files[0])"></p><p>${CP.xmsg||''}</p>`}
 function cpBox(){const ks=Object.keys(T),k=CP.team||PICK[0],inp=(f,l,w)=>`<label style="display:inline-block;margin:3px 8px 3px 0">${l}<br><input style="width:${w||70}px" inputmode="numeric" value="${CP[f]}" oninput="cpSet('${f}',this.value)"></label>`;
  return `<div class=c><b>Add a player</b><p>Create a player from real season stats. The card starts from the average card for the position and is adjusted to match; it is an approximation, not a printed card.</p><p>Type: <select onchange="CP.kind=this.value;CP.msg='';render()"><option value=rb ${CP.kind=='rb'?'selected':''}>Running back</option><option value=wr ${CP.kind=='wr'?'selected':''}>Receiver</option><option value=qb ${CP.kind=='qb'?'selected':''}>Quarterback</option></select></p>
  <p>Team: <select onchange="CP.team=this.value;cpPrev()">${ks.map(x=>`<option value="${x}" ${k==x?'selected':''}>${NM[x]}${YR[x]?' ('+YR[x]+')':''}</option>`).join('')}</select> Position: ${CP.kind=='qb'?'QB':CP.kind=='wr'?`<select onchange="cpSet('rpos',this.value)">${['SE','FL','WB','TE'].map(x=>`<option ${CP.rpos==x?'selected':''}>${x}</option>`).join('')}</select>`:`<select onchange="cpSet('pos',this.value)"><option ${CP.pos=='HB'?'selected':''}>HB</option><option ${CP.pos=='FB'?'selected':''}>FB</option></select>`}</p>
- <p>${inp('name','Name',160)}</p>${CP.kind=='qb'?`<p>${inp('att','Pass attempts')}${inp('comp','Completions')}${inp('int','Interceptions')}</p><p>${inp('tc','Rushing carries')}${inp('yds','Rushing yards')}${inp('lg','Longest run')}${inp('td','Rushing TDs')}</p>`:CP.kind=='wr'?`<p>${inp('no','Catches')}${inp('ryds','Receiving yards')}${inp('rlg','Longest catch')}${inp('td','Receiving TDs')}</p>`:`<p>${inp('tc','Carries')}${inp('yds','Rushing yards')}${inp('lg','Longest run')}${inp('td','Rushing TDs')}</p><p>${inp('no','Catches')}${inp('ryds','Receiving yards')}${inp('rlg','Longest catch')}</p>`}<div id=cpPrev></div></div>`}
+ <p>${inp('name','Name',160)}</p>${CP.kind=='qb'?`<p>${inp('att','Pass attempts')}${inp('comp','Completions')}${inp('int','Interceptions')}</p><p>${inp('tc','Rushing carries')}${inp('yds','Rushing yards')}${inp('lg','Longest run')}${inp('td','Rushing TDs')}</p>`:CP.kind=='wr'?`<p>${inp('no','Catches')}${inp('ryds','Receiving yards')}${inp('rlg','Longest catch')}${inp('td','Receiving TDs')}</p>`:`<p>${inp('tc','Carries')}${inp('yds','Rushing yards')}${inp('lg','Longest run')}${inp('td','Rushing TDs')}</p><p>${inp('no','Catches')}${inp('ryds','Receiving yards')}${inp('rlg','Longest catch')}</p>`}<div id=cpPrev></div><hr>${cpList()}</div>`}
 function setupHTML(){const ks=Object.keys(T),sel=i=>`<select onchange="PICK[${i}]=this.value;render()">${ks.map(k=>`<option value="${k}" ${PICK[i]==k?'selected':''}>${NM[k]}${YR[k]?' ('+YR[k]+')':''}</option>`).join('')}</select>`,same=PICK[0]==PICK[1];
  setTimeout(cpPrev,0);
  return `<div class=c><b>Choose the teams</b><p>${sel(0)} vs ${sel(1)}</p>${same?'<p><b>Pick two different teams.</b></p>':''}<button class=big ${same?'disabled':''} onclick="start()">Start game</button></div>${logoCard()}<div class=c><b>Add a team</b><p>Load a team file made by the card reader program.</p><input type="file" accept=".json,application/json" onchange="importTeam(this.files[0])"><p>${IMSG}</p></div>${cpBox()}${loadBox()}`}
@@ -366,10 +412,10 @@ function render(){const e=document.getElementById('app');if(!G){e.innerHTML=setu
  if(G.ph=='kick')h+=`<p>${nm(G.po)} to kick off.</p><button class=big onclick="go()">Kick off</button><button class=big onclick="onside()">Onside kick</button>`;
  if(G.ph=='def')h+=`<p><b>${nm(1-G.po)}</b> (defense): choose a setting. Offense, look away!</p>`+[1,2,3,4,5].map(n=>`<button class=big onclick="setDef(${n})">${n}</button>`).join('');
  if(G.ph=='cd')h+=`<p><b>${nm(1-G.po)}</b>: the kick landed ${G.pos+G.pend.d-110} yds deep in the end zone. Return it or concede the single?</p><button class=big onclick="choose(1)">Return it</button><button class=big onclick="choose(2)">Concede the single</button>`;
- if(G.ph=='cov')h+=`<p>Setting locked in. Hand the screen to <b>${nm(G.po)}</b>.</p><button class=big onclick="ready()">I'm the offense – continue</button>`;
+ if(G.ph=='cov')h+=`<p>Setting locked in. Hand the screen to <b>${nm(G.po)}</b>.</p><button class=big onclick="ready()">I'm the offense – continue</button><p><small>Picked the wrong setting?</small> <button onclick="redoDef()">Change my setting</button></p>`;
  if(G.ph=='off')h+=`<p><b>${nm(G.po)}</b>: call your play.</p>`+playUI();
  if(G.ph=='over')h+=`<p class=big>Final: ${nm(0)} ${G.sc[0]}, ${nm(1)} ${G.sc[1]}</p><button onclick="start()">New game</button><button onclick="G=null;render()">Choose different teams</button>`;
- e.innerHTML=h+(['kick','def','cov','off'].includes(G.ph)?'<br><button onclick="chg()">Change lineup</button>':'')+`</div><div class=c id=log>`+G.log.slice(0,40).map(l=>`<p>${l}</p>`).join('')+'</div>'+saveBox();const w=document.getElementById('fld');if(w&&w.scrollWidth>w.clientWidth)w.scrollLeft=G.bx/1600*w.scrollWidth-w.clientWidth/2}
+ e.innerHTML=h+(['kick','def','cov','off'].includes(G.ph)?'<br><button onclick="chg()">Change lineup</button>':'')+(G.ph=='over'?'':(RST?'<p><b>Reset this game and go back to the start page?</b> The game in progress will be lost (save it first if you want it). <button onclick="rstGo()">Yes, reset</button> <button onclick="rstNo()">No, keep playing</button></p>':'<p><button onclick="rstAsk()">Reset game</button></p>'))+`</div><div class=c id=log>`+G.log.slice(0,40).map(l=>`<p>${l}</p>`).join('')+'</div>'+saveBox();const w=document.getElementById('fld');if(w&&w.scrollWidth>w.clientWidth)w.scrollLeft=G.bx/1600*w.scrollWidth-w.clientWidth/2}
 /* ---- save / load a game in progress ---- */
 let LMSG='',SAVETXT='';
 async function saveGame(){if(!G)return;const BI=new Set(['bc','sk']),teams={};G.tm.forEach(k=>{if(!BI.has(k))teams[k]=T[k]});
@@ -467,7 +513,7 @@ function stAuto(){if(!G||!G.st)return;const id=G.st.id;
 /* ---- two-device play (active only on the hosted site) ---- */
 const NETON=window.SACPF_NET===true;
 const NET={mode:null,code:'',ws:null,up:false,peer:false,sentTeams:'',leaving:false,err:'',everUp:false};
-const NETFN=['go','onside','setDef','pick','choose','setPos','chg','begin','setRoster'],ORIG={};
+const NETFN=['go','onside','setDef','pick','choose','setPos','chg','begin','setRoster','redoDef'],ORIG={};
 const netSend=o=>{try{if(NET.ws&&NET.ws.readyState===1){NET.ws.send(JSON.stringify(o));return true}}catch(x){}return false};
 const myIdx=()=>NET.mode=='host'?0:1;
 NETFN.forEach(n=>{ORIG[n]=window[n];window[n]=(...a)=>{if(NET.mode=='guest'){netSend({t:'act',f:n,a});return}return ORIG[n](...a)}});
@@ -484,6 +530,7 @@ function netAct(m){if(NET.mode!='host'||!G)return;const f=m.f,a=Array.isArray(m.
   case 'pick':ok=ph=='off'&&po==g&&Number.isInteger(a[0])&&!!(G.opts&&G.opts[a[0]]);break;
   case 'choose':ok=ph=='cd'&&1-po==g&&(a[0]==1||a[0]==2);break;
   case 'setPos':ok=ph=='lineup'&&a[0]==g&&Number.isInteger(a[1])&&typeof a[2]=='string';break;
+  case 'redoDef':ok=ph=='off'&&1-po==g;break;
   case 'chg':ok=['kick','def','cov','off'].includes(ph);break;
   case 'setRoster':ok=ph=='lineup'&&(a[0]===0||a[0]===1);break}
  if(ok){if(f=='setRoster')ORIG[f](a[0],1);else ORIG[f](...a)}}
@@ -529,11 +576,13 @@ function netDecorate(){const e=document.getElementById('app');if(!e)return;
   const m=myIdx();let wait='';
   if(G){const ph=G.ph,po=G.po,a=(ph=='kick'||ph=='off')?po:(ph=='def'||ph=='cd')?1-po:null,what={kick:'kick off',def:'choose a defensive setting',off:'call a play',cd:'decide on the return'}[ph];
    if(a!==null&&a!==m){wait=`<br><b>Waiting for ${nm(a)} to ${what}…</b>`;[...e.querySelectorAll('button')].forEach(b=>{if(/^(go|onside|setDef|sel_|pick|clr|choose)\(/.test(b.getAttribute('onclick')||''))b.disabled=true})}
+   if(ph=='off'&&m==1-po){wait+=`<br>Your defensive setting: <b>${G.ds||'?'}</b> (hidden from the offense). <button onclick="redoDef()">Change my setting</button> <small>until they call a play</small>`}
    if(ph=='lineup'){const rd=G.rdy||[false,false];
     [...e.querySelectorAll('select')].forEach(s=>{const k=(s.getAttribute('onchange')||'').match(/^setPos\((\d+),/);if(k&&(+k[1]!==m||rd[m]))s.disabled=true});
     const bb=[...e.querySelectorAll('button')].find(b=>(b.getAttribute('onclick')||'')=='begin()');
     if(bb&&!(NET.mode=='host'&&!NET.peer))bb.outerHTML=`<button class=big onclick="setRoster(${rd[m]?0:1})">${rd[m]?'Roster set – tap to edit':'Set Roster'}</button><p><small>${nm(m)}: <b>${rd[m]?'ready':'not set'}</b> · ${nm(1-m)}: <b>${rd[1-m]?'ready':'not set'}</b>. The game starts when both players have set their roster.</small></p>`}
    if(ph=='over'&&NET.mode=='guest')[...e.querySelectorAll('button')].forEach(b=>{if(/^(start|G=null)/.test(b.getAttribute('onclick')||''))b.disabled=true});
+   if(NET.mode=='guest')[...e.querySelectorAll('button')].forEach(b=>{if(/^rst/.test(b.getAttribute('onclick')||''))b.disabled=true});
    [...e.querySelectorAll('p')].forEach(p=>{const t=p.lastChild;if(t&&t.nodeType==3)t.textContent=t.textContent.replace(' Offense, look away!','')})}
   e.insertAdjacentHTML('afterbegin',`<div class=c style="background:#e8f1ff"><small>Two-device game <b>${NET.code||'…'}</b> · ${st}${G?' · you are <b>'+nm(m)+'</b>':''} · <a href="#" onclick="netLeave();return false">leave</a>${wait}</small></div>`)}}
 {const r0=render;window.render=function(){if(NET.mode=='host'&&G&&G.ph=='cov'){ready();return}if(NET.mode=='host')netBroadcast();r0();if(NETON)netDecorate()}}

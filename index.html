@@ -8,6 +8,8 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 :root[data-theme="dark"]{--bg:#1b1b1b;--fg:#eee;--card:#262626;--ln:#444}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,sans-serif}
 main{max-width:760px;margin:0 auto;padding:12px}
+@media (min-width:1000px){main.wide{max-width:1100px}}
+.chg{background:#ffe066;color:#1a1a1a;border-radius:6px;padding:0 8px}
 .c{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px;margin:10px 0}
 button{font:inherit;padding:9px 13px;margin:3px;border-radius:8px;border:1px solid var(--ln);background:var(--card);color:var(--fg);cursor:pointer}
 .big{font-size:1.2em;font-weight:700}
@@ -35,7 +37,7 @@ function start(){G={tm:[PICK[0],PICK[1]],sc:[0,0],q:1,clk:900,po:0,pos:0,dn:1,tg
  G.k1=Math.random()<.5?0:1;G.po=G.k1;L(`Coin flip: ${nm(1-G.k1)} receives.`);RL=[];G.inj=[0,1].map(i=>carry(G.tm[i]));fixLU();render()}
 function spend(s){const c=G.clk,late=(G.q==2||G.q==4);if(late&&c<=180)s=20;else if(late&&c-s<180)s=c-180;G.clk=Math.max(0,c-s)}
 function flip(){G.po=1-G.po;G.pos=110-G.pos;G.dn=1;G.tg=10;G.hist=[]}
-function sc(i,p){G.sc[i]+=p}
+function sc(i,p){G.sc[i]+=p;(G.sch=G.sch||[0,0])[i]=1}
 function xp(i){const K=tm(i).place_kicking,r=r2(i,'Convert kick',t=>K.convert[t].join(' / ')),a=K.convert[r][0],res=a=='-K2-'?K.convert[r2(i,'Convert, second column',t=>K.convert[t][1])][1]:a;
  if(res=='GD'){sc(i,1);L('Convert is good (+1).')}else L('Convert no good.')}
 function td(i){sc(i,6);L(`TOUCHDOWN ${nm(i)}! (+6)`);xp(i);G.po=i;G.pos=0;G.ph='kick'}
@@ -115,15 +117,18 @@ function snap(k,who){const o=O(),dd=Df(),ix={S:0,M:1,L:2}[k],run=k=='run',n0=RL.
  if(e=='CP'){pen('o',2);return}
  const v=rc[r2(G.po,who+' '+'SML'[ix],t=>rc[t][ix])][ix],g=pr(v);L(`Complete: ${v}`);ctx.comp=1;ctx.cy=g.n;if(g.td){adv(110);return}
  if(g.f&&fum(G.pos+g.n))return;adv(g.n)}
-function qend(){L(`End of quarter ${G.q}.`);if(G.q>=4){G.ph='over';save();return}G.q++;G.clk=900;G.inj.forEach(o=>{for(const k in o){const e=o[k];if(e.scope=='quarter'||(e.scope=='half'&&G.q==3))delete o[k]}});
+function qend(){L(`End of quarter ${G.q}.`);G.bn=G.q==2?'Halftime':G.q>=4?'Final':'End of the '+['1st','2nd','3rd'][G.q-1]+' quarter';if(G.q>=4){G.ph='over';save();return}G.q++;G.clk=900;G.inj.forEach(o=>{for(const k in o){const e=o[k];if(e.scope=='quarter'||(e.scope=='half'&&G.q==3))delete o[k]}});
  if(G.q==3){G.po=1-G.k1;G.dn=1;G.tg=10;G.hist=[];G.ph='kick';L('Second half kickoff.')}}
-function end(){if(G.clk<=0&&G.ph!='over'&&G.ph!='cd')qend();fixLU();render()}
+let PENP=false;
+function qtry(){if(PENP&&(G.q==2||G.q==4)&&G.clk<=0){PENP=false;L('Penalty on the last play: the '+(G.q==2?'half':'game')+' cannot end on a penalty. One more play, no time off the clock.')}else qend()}
+function end(){if(G.clk<=0&&G.ph!='over'&&G.ph!='cd')qtry();fixLU();render()}
 let DS=0,RY=0;function play(k,w){RL=[];RY=0;DS=G.ds;G.ph='def';G.ds=null;if(k=='punt')punt();else if(k=='fg')fg();else snap(k,w);tick();spend(30);end()}
 function go(){RL=[];ko();spend(30);end()}
 function onside(){RL=[];const k=G.po,r=1-k,row=tm(k).punt_kickoff.kickoff[r2(k,'Onside kick',t=>tm(k).punt_kickoff.kickoff[t][3])],os=String(row[3]),dist=pr(os).n,rec=os.includes('R'),spot=35+dist;
  L(`${nm(k)} try an onside kick: ${dist} yds, ${rec?'recovered by the kicking team':'recovered by '+nm(r)}.`);
  if(rec)G.pos=spot;else{G.po=r;G.pos=110-spot}G.dn=1;G.tg=10;G.hist=[];G.ph='def';G.ds=null;G.sf=0;render()}
-function choose(c){const p=G.pend;G.pend=null;G.ph='def';G.ds=null;PK=p.pk;away(p.d,p.rc,c);if(G.clk<=0&&G.ph!='over')qend();render()}
+function choose(c){const p=G.pend;G.pend=null;G.ph='def';G.ds=null;PK=p.pk;away(p.d,p.rc,c);if(G.clk<=0&&G.ph!='over')qtry();render()}
+const DLAB={1:'Strong Run',2:'Lean Run',3:'Balanced',4:'Lean Pass',5:'Strong Pass'};
 function setDef(n){G.ds=n;G.ph='cov';render()}
 function redoDef(){if(!G||(G.ph!='cov'&&G.ph!='off'))return;G.ph='def';G.ds=null;G.sel=SEL0();render()}
 const blk=key=>{const h=G.hist.slice(-2);return h.length==2&&h[0]==key&&h[1]==key};
@@ -139,11 +144,12 @@ function en(f,v){const s=G.sel;return legal().some(l=>l[f]===v&&['t','d','p'].ev
 function sel_(f,v){G.sel[f]=G.sel[f]===v?null:v;render()}
 function clr(){G.sel=SEL0();render()}
 function btn(f,v,label){const on=G.sel[f]===v,ok=on||en(f,v);return `<button ${ok?'':'disabled'} style="${on?'outline:3px solid #0c5a3a;font-weight:700':''}" onclick="sel_('${f}','${v}')">${label}</button>`}
+function avTag(n){if(G.sel.t!='pass'||!G.sel.d||!n)return '';const c=O().receivers[n]||O().backs[n];if(!c)return '';const i='SML'.indexOf(G.sel.d);if(c.rec[2][i]==='')return '<br><small>no ' +{S:'short',M:'medium',L:'long'}[G.sel.d]+' column</small>';return '<br><small>avg '+av(r=>val(c.rec[r][i])).toFixed(1)+' yds</small>'}
 function playUI(){const s=G.sel,lu=G.lu[G.po],row=(t,b)=>`<div style="margin:6px 0"><small>${t}</small><br>${b}</div>`,
  done=s.t=='punt'||s.t=='fg'||(s.t=='run'&&s.p)||(s.t=='pass'&&s.d&&s.p),
  m=legal().find(l=>l.t==s.t&&(s.t=='punt'||s.t=='fg'||(l.p==s.p&&(s.t=='run'||l.d==s.d))));
  return row('1. Type of play',PT.map(x=>btn('t',x[0],x[1])).join(''))+row('2. Pass distance',[['S','Short'],['M','Medium'],['L','Long']].map(x=>btn('d',x[0],x[1])).join(''))+
- row('3. Player',['HB','FB','WB','SE','FL','TE'].map(p=>btn('p',p,`${p}: ${lu[p]}`)).join(''))+
+ row('3. Player',['HB','FB','WB','SE','FL','TE'].map(p=>btn('p',p,`${p}: ${lu[p]}${avTag(lu[p])}`)).join(''))+
  `<button class=big ${done&&m?'':'disabled'} onclick="pick(${m?m.i:0})">Call play</button> <button onclick="clr()">Clear</button>`}
 function ready(){G.ph='off';G.opts=opts();G.sel=SEL0();render()}
 const W={2:1,3:2,4:3,5:4,6:5,7:6,8:5,9:4,10:3,11:2,12:1},OP=['QB','HB','FB','WB','SE','FL','TE'];
@@ -400,17 +406,17 @@ function fieldSVG(){const ph=isPhone(),H=ph?140:312,t0=G.po==0,X=y=>250+y*10,at=
   s+=`<line x1="${x}" x2="${x}" y1="0" y2="${H}" stroke="#fff" stroke-width="${g?7:3}"/>`+((k%2&&k!=11)?'':tx(y1)+tx(y2))}
  s+=[0,1].map(i=>{const cx=i?1450:150,tx=i?1572:28,u=LOGO[G.tm[i]];return `<rect x="${cx-85}" y="${Math.round(H*.15)}" width="170" height="${Math.round(H*.7)}" rx="14" fill="#fff"/>${u?`<image href="${u}" xlink:href="${u}" x="${cx-80}" y="${Math.round(H*.175)}" width="160" height="${Math.round(H*.65)}" preserveAspectRatio="xMidYMid meet"/>`:''}<text transform="translate(${tx} ${H/2}) rotate(${i?90:-90})" font-size="${ph?20:28}" font-weight="800" fill="#fff" text-anchor="middle" textLength="${Math.round(H*.75)}" lengthAdjust="spacingAndGlyphs">${SN[G.tm[i]]}${NM[G.tm[0]]==NM[G.tm[1]]?' '+YR[G.tm[i]]:''}</text>`}).join('');
  if(!kick&&G.ph!='over'&&G.pos+G.tg<=110)s+=`<line x1="${at(G.pos+G.tg)}" x2="${at(G.pos+G.tg)}" y1="0" y2="${H}" stroke="#f5d000" stroke-width="7"/>`;
- G.bx=bx;return s+`<ellipse cx="${bx}" cy="${H/2}" rx="24" ry="15" fill="#8b4513" stroke="#fff" stroke-width="3"/></svg>`}
+ G.bx=bx;return s+`<ellipse cx="${bx-(t0?24:-24)}" cy="${H/2}" rx="24" ry="15" fill="#8b4513" stroke="#fff" stroke-width="3"/></svg>`}
 let _wasPhone=isPhone();window.addEventListener('resize',()=>{const n=isPhone();if(n!==_wasPhone){_wasPhone=n;if(G)render()}});
 function render(){const e=document.getElementById('app');if(!G){e.innerHTML=setupHTML();return}
  if(G.ph=='lineup'){e.innerHTML=lineupHTML()+saveBox();return}
  const x=G.po==0?G.pos/110*100:(110-G.pos)/110*100,fx=G.po==0?Math.min(100,(G.pos+G.tg)/1.1):Math.max(0,(110-G.pos-G.tg)/1.1),
  m=Math.floor(G.clk/60),s=String(G.clk%60).padStart(2,'0'),yl=G.pos<=55?'own '+G.pos:'opp '+(110-G.pos);
- let h=`<div class="c big" style="display:flex;flex-wrap:wrap;gap:6px 10px"><div style="display:flex;align-items:center;gap:10px;width:100%">${lg(0)}<span style="flex:1;text-align:center">${nm(0)}<sup>${YR[G.tm[0]]||''}</sup> ${G.sc[0]} – ${G.sc[1]} ${nm(1)}<sup>${YR[G.tm[1]]||''}</sup></span>${lg(1)}</div><div style="flex-basis:100%;display:flex;justify-content:space-between;gap:12px;font-size:.62em;font-weight:400"><div style="text-align:left">${rollsHTML(0)}</div><div style="text-align:right">${rollsHTML(1)}</div></div></div><div class=c>Q${G.q} · ${m}:${s} · ${nm(G.po)} ball (${G.po==0?'→':'←'})<br>`+
+ let h=`<div class=c id=sb><div class=big style="display:flex;flex-wrap:wrap;gap:6px 10px"><div style="display:flex;align-items:center;gap:10px;width:100%">${lg(0)}<span style="flex:1;text-align:center">${nm(0)}<sup>${YR[G.tm[0]]||''}</sup> <span class="${(G.sch||[])[0]?'chg':''}">${G.sc[0]}</span> – <span class="${(G.sch||[])[1]?'chg':''}">${G.sc[1]}</span> ${nm(1)}<sup>${YR[G.tm[1]]||''}</sup></span>${lg(1)}</div>${G.bn?`<div style="width:100%;text-align:center;font-size:.75em;font-weight:700;color:#b45309">${G.bn}</div>`:''}<div style="flex-basis:100%;display:flex;justify-content:space-between;gap:12px;font-size:.62em;font-weight:400"><div style="text-align:left">${rollsHTML(0)}</div><div style="text-align:right">${rollsHTML(1)}</div></div></div><div style="margin-top:8px">Q${G.q} · ${m}:${s} · ${nm(G.po)} ball (${G.po==0?'→':'←'})<br>`+
  (G.ph=='kick'||G.ph=='over'?'':`${G.dn}${['st','nd','rd'][G.dn-1]} &amp; ${G.tg} at ${yl}`)+
- `<div id="fld" style="overflow-x:auto">${fieldSVG()}</div></div><div class=c>`;
+ `<div id="fld" style="overflow-x:auto">${fieldSVG()}</div></div></div><div class=c>`;
  if(G.ph=='kick')h+=`<p>${nm(G.po)} to kick off.</p><button class=big onclick="go()">Kick off</button><button class=big onclick="onside()">Onside kick</button>`;
- if(G.ph=='def')h+=`<p><b>${nm(1-G.po)}</b> (defense): choose a setting. Offense, look away!</p>`+[1,2,3,4,5].map(n=>`<button class=big onclick="setDef(${n})">${n}</button>`).join('');
+ if(G.ph=='def')h+=`<p><b>${nm(1-G.po)}</b> (defense): choose a setting. Offense, look away!</p>`+[1,2,3,4,5].map(n=>`<button class=big onclick="setDef(${n})">${n} ${DLAB[n]}</button>`).join('');
  if(G.ph=='cd')h+=`<p><b>${nm(1-G.po)}</b>: the kick landed ${G.pos+G.pend.d-110} yds deep in the end zone. Return it or concede the single?</p><button class=big onclick="choose(1)">Return it</button><button class=big onclick="choose(2)">Concede the single</button>`;
  if(G.ph=='cov')h+=`<p>Setting locked in. Hand the screen to <b>${nm(G.po)}</b>.</p><button class=big onclick="ready()">I'm the offense – continue</button><p><small>Picked the wrong setting?</small> <button onclick="redoDef()">Change my setting</button></p>`;
  if(G.ph=='off')h+=`<p><b>${nm(G.po)}</b>: call your play.</p>`+playUI();
@@ -590,7 +596,7 @@ function netDecorate(){const e=document.getElementById('app');if(!e)return;
   const m=myIdx();let wait='';
   if(G){const ph=G.ph,po=G.po,a=(ph=='kick'||ph=='off')?po:(ph=='def'||ph=='cd')?1-po:null,what={kick:'kick off',def:'choose a defensive setting',off:'call a play',cd:'decide on the return'}[ph];
    if(a!==null&&a!==m){wait=`<br><b>Waiting for ${nm(a)} to ${what}…</b>`;[...e.querySelectorAll('button')].forEach(b=>{if(/^(go|onside|setDef|sel_|pick|clr|choose)\(/.test(b.getAttribute('onclick')||''))b.disabled=true})}
-   if(ph=='off'&&m==1-po){wait+=`<br>Your defensive setting: <b>${G.ds||'?'}</b> (hidden from the offense). <button onclick="redoDef()">Change my setting</button> <small>until they call a play</small>`}
+   if(ph=='off'&&m==1-po){wait+=`<br>Your defensive setting: <b>${G.ds?G.ds+' '+DLAB[G.ds]:'?'}</b> (hidden from the offense). <button onclick="redoDef()">Change my setting</button> <small>until they call a play</small>`}
    if(ph=='lineup'){const rd=G.rdy||[false,false];
     [...e.querySelectorAll('select')].forEach(s=>{const k=(s.getAttribute('onchange')||'').match(/^setPos\((\d+),/);if(k&&(+k[1]!==m||rd[m]))s.disabled=true});
     const bb=[...e.querySelectorAll('button')].find(b=>(b.getAttribute('onclick')||'')=='begin()');
@@ -603,4 +609,12 @@ function netDecorate(){const e=document.getElementById('app');if(!e)return;
 if(NETON)netResume();
 
 render();
+
+/* ---- display and rules tweaks ---- */
+{const h0=window.stHook;window.stHook=m=>{if(/enalt|nterference/i.test(m))PENP=true;return h0(m)}}
+{const pl=window.play;window.play=function(...a){PENP=false;if(G){G.bn='';G.sch=[0,0]}return pl.apply(this,a)}}
+{const gg=window.go;window.go=function(...a){PENP=false;if(G){G.bn='';G.sch=[0,0]}return gg.apply(this,a)}}
+{const os=window.onside;window.onside=function(...a){if(G){G.bn='';G.sch=[0,0]}return os.apply(this,a)}}
+let _ll=null;{const r1=window.render;window.render=function(){r1();const m=document.querySelector('main');if(m)m.classList.toggle('wide',!!G&&G.ph!='lineup');
+ if(G&&G.log){const n=G.log.length;if(_ll!==null&&n!==_ll&&G.ph!='lineup'&&!STV){const sb=document.getElementById('sb');if(sb){const r=sb.getBoundingClientRect();if(r.top<0||r.top>window.innerHeight*.4)sb.scrollIntoView({block:'start'})}}_ll=n}else _ll=null}}
 </script></body></html>

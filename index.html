@@ -390,7 +390,7 @@ function cpBox(){const ks=Object.keys(T),k=CP.team||PICK[0],inp=(f,l,w)=>`<label
  <p>${inp('name','Name',160)}</p>${CP.kind=='qb'?`<p>${inp('att','Pass attempts')}${inp('comp','Completions')}${inp('int','Interceptions')}</p><p>${inp('tc','Rushing carries')}${inp('yds','Rushing yards')}${inp('lg','Longest run')}${inp('td','Rushing TDs')}</p>`:CP.kind=='wr'?`<p>${inp('no','Catches')}${inp('ryds','Receiving yards')}${inp('rlg','Longest catch')}${inp('td','Receiving TDs')}</p>`:`<p>${inp('tc','Carries')}${inp('yds','Rushing yards')}${inp('lg','Longest run')}${inp('td','Rushing TDs')}</p><p>${inp('no','Catches')}${inp('ryds','Receiving yards')}${inp('rlg','Longest catch')}</p>`}<div id=cpPrev></div><hr>${cpList()}</div>`}
 function setupHTML(){const ks=Object.keys(T),sel=i=>`<select onchange="PICK[${i}]=this.value;render()">${ks.map(k=>`<option value="${k}" ${PICK[i]==k?'selected':''}>${NM[k]}${YR[k]?' ('+YR[k]+')':''}</option>`).join('')}</select>`,same=PICK[0]==PICK[1];
  setTimeout(cpPrev,0);
- return `<div class=c><b>Choose the teams</b><p>${sel(0)} vs ${sel(1)}</p>${same?'<p><b>Pick two different teams.</b></p>':''}<button class=big ${same?'disabled':''} onclick="start()">Start game</button></div>${logoCard()}<div class=c><b>Add a team</b><p>Load a team file made by the card reader program.</p><input type="file" accept=".json,application/json" onchange="importTeam(this.files[0])"><p>${IMSG}</p></div>${cpBox()}${loadBox()}`}
+ return `<div class=c><b>Choose the teams</b><p>${sel(0)} vs ${NETON&&NET.mode=='host'&&NET.peer?(NET.gk&&T[NET.gk]?`<b>${NM[NET.gk]}${YR[NET.gk]?' ('+YR[NET.gk]+')':''}</b> (your friend's pick)`:'<i>waiting for your friend to choose a team…</i>'):sel(1)}</p>${same?'<p><b>Pick two different teams.</b></p>':''}<button class=big ${same||(NETON&&NET.mode=='host'&&NET.peer&&!NET.gk)?'disabled':''} onclick="start()">Start game</button></div>${logoCard()}<div class=c><b>Add a team</b><p>Load a team file made by the card reader program.</p><input type="file" accept=".json,application/json" onchange="importTeam(this.files[0])"><p>${IMSG}</p></div>${cpBox()}${loadBox()}`}
 const isPhone=()=>{try{return window.matchMedia('(max-width:700px)').matches}catch(x){return false}};
 function fieldSVG(){const ph=isPhone(),H=ph?140:312,t0=G.po==0,X=y=>250+y*10,at=p=>X(t0?p:110-p),kick=G.ph=='kick',pos=kick?35:G.pos,bx=at(pos),vx=ph?Math.max(0,Math.min(1200,bx-200)):0,vw=ph?400:1600,fs=ph?24:30,y1=Math.round(H*.29),y2=Math.round(H*.86);
  let s=`<svg viewBox="${vx} 0 ${vw} ${H}" style="${ph?'':'min-width:760px;'}width:100%;display:block;border-radius:6px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><pattern id="hz" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="24" height="24" fill="#0c5a3a"/><rect width="5" height="24" fill="#cfe3d6"/></pattern></defs><rect width="1600" height="${H}" fill="#0c5a3a"/><rect width="250" height="${H}" fill="url(#hz)"/><rect x="1350" width="250" height="${H}" fill="url(#hz)"/>`,tk='';
@@ -512,7 +512,7 @@ function stAuto(){if(!G||!G.st)return;const id=G.st.id;
 
 /* ---- two-device play (active only on the hosted site) ---- */
 const NETON=window.SACPF_NET===true;
-const NET={mode:null,code:'',ws:null,up:false,peer:false,sentTeams:'',leaving:false,err:'',everUp:false};
+const NET={mode:null,code:'',ws:null,up:false,peer:false,sentTeams:'',leaving:false,err:'',everUp:false,gk:'',hk:'',gpick:'',pool:new Set(),poolN:0,poolGot:0,poolSig:'',hpk:''};
 const NETFN=['go','onside','setDef','pick','choose','setPos','chg','begin','setRoster','redoDef'],ORIG={};
 const netSend=o=>{try{if(NET.ws&&NET.ws.readyState===1){NET.ws.send(JSON.stringify(o));return true}}catch(x){}return false};
 const myIdx=()=>NET.mode=='host'?0:1;
@@ -534,6 +534,10 @@ function netAct(m){if(NET.mode!='host'||!G)return;const f=m.f,a=Array.isArray(m.
   case 'chg':ok=['kick','def','cov','off'].includes(ph);break;
   case 'setRoster':ok=ph=='lineup'&&(a[0]===0||a[0]===1);break}
  if(ok){if(f=='setRoster')ORIG[f](a[0],1);else ORIG[f](...a)}}
+function netPool(){if(NET.mode!='host'||!NET.up)return;const ks=Object.keys(T);NET.poolSig=ks.join()+'|'+JSON.stringify(IMP).length;NET.hpk=PICK[0];
+ ks.forEach((k,i)=>netSend({t:'pool',k,j:T[k],logo:LOGO[k]||'',i,n:ks.length}));netSend({t:'hostpick',k:PICK[0]})}
+function netSync(){if(NET.mode!='host'||!NET.peer||G)return;const sig=Object.keys(T).join()+'|'+JSON.stringify(IMP).length;
+ if(sig!==NET.poolSig)netPool();else if(NET.hpk!==PICK[0]){NET.hpk=PICK[0];netSend({t:'hostpick',k:PICK[0]})}}
 function netBroadcast(){
  try{localStorage.setItem('sacpf_net_auto',JSON.stringify({code:NET.code,G:G,RL:RL}))}catch(x){}
  if(!NET.up)return;
@@ -543,8 +547,13 @@ function netBroadcast(){
 function netMsg(m){switch(m.t){
  case 'hosted':NET.code=m.code;NET.up=true;NET.everUp=true;NET.peer=!!m.guest;NET.err='';NET.sentTeams='';netStore();render();break;
  case 'joined':NET.up=true;NET.everUp=true;NET.peer=!!m.host;NET.err='';netStore();netSend({t:'hello'});render();break;
- case 'peer':NET.peer=m.s=='joined';if(NET.mode=='host'&&NET.peer)NET.sentTeams='';if(NET.mode=='guest'&&NET.peer)netSend({t:'hello'});render();break;
- case 'hello':if(NET.mode=='host'){NET.sentTeams='';render()}break;
+ case 'peer':NET.peer=m.s=='joined';if(NET.mode=='host'&&m.s!='joined'){NET.gk='';NET.hpk=''}if(NET.mode=='host'&&NET.peer)NET.sentTeams='';if(NET.mode=='guest'&&NET.peer)netSend({t:'hello'});render();break;
+ case 'hello':if(NET.mode=='host'){NET.sentTeams='';netPool();render()}break;
+ case 'pool':if(NET.mode=='guest'&&m.k&&m.j){try{addTeam(m.k,m.j);if(m.logo)LOGO[m.k]=m.logo;NET.pool.add(m.k);NET.poolN=m.n||0;NET.poolGot++;if(NET.poolGot>=NET.poolN&&NET.gpick)gPick(NET.gpick,1)}catch(e){}render()}break;
+ case 'hostpick':if(NET.mode=='guest'){NET.hk=String(m.k||'');render()}break;
+ case 'gteam':if(NET.mode=='host'&&typeof m.k=='string'&&m.k.length<120&&!G){let k=m.k;
+  if(!T[k]&&m.j){try{if(!checkTeam(m.j).length){addTeam(k,m.j);if(m.logo)LOGO[k]=m.logo}}catch(e){}}
+  if(T[k]){NET.gk=k;PICK[1]=k}render()}break;
  case 'err':NET.err=m.m||'Connection problem.';if(m.fatal||(m.code=='nogame'&&!NET.everUp)){const e=NET.err;netLeave();NET.err=e}render();break;
  case 'teams':if(NET.mode=='guest'&&Array.isArray(m.teams))m.teams.forEach(x=>{try{addTeam(x.k,x.j);if(x.logo)LOGO[x.k]=x.logo}catch(e){}});break;
  case 'snap':if(NET.mode=='guest'){if(m.G&&!(Array.isArray(m.G.tm)&&m.G.tm.every(k=>T[k])))break;G=m.G;RL=Array.isArray(m.RL)?m.RL:[];if(G){PICK[0]=G.tm[0];PICK[1]=G.tm[1]}render()}break;
@@ -558,8 +567,8 @@ function netConnect(){
  ws.onopen=()=>netSend(NET.mode=='host'?{t:'host',code:NET.code}:{t:'join',code:NET.code});
  ws.onmessage=ev=>{let m;try{m=JSON.parse(ev.data)}catch(x){return}netMsg(m)};
  ws.onclose=()=>{if(NET.ws!==ws)return;NET.up=false;NET.peer=false;if(NET.mode&&!NET.leaving)setTimeout(()=>{if(NET.mode&&!NET.leaving&&NET.ws===ws)netConnect()},2000);render()}}
-function netHost(){NET.mode='host';NET.code='';NET.err='';NET.everUp=false;netConnect();render()}
-function netJoin(){const c=((document.getElementById('jc')||{}).value||'').toUpperCase().trim();if(!c){NET.err='Type the game code first.';render();return}
+function netHost(){NET.gk='';NET.hpk='';NET.poolSig='';NET.mode='host';NET.code='';NET.err='';NET.everUp=false;netConnect();render()}
+function netJoin(){NET.pool=new Set();NET.poolN=0;NET.poolGot=0;NET.gpick='';NET.hk='';const c=((document.getElementById('jc')||{}).value||'').toUpperCase().trim();if(!c){NET.err='Type the game code first.';render();return}
  NET.mode='guest';NET.code=c;NET.err='';NET.everUp=false;netConnect();render()}
 function netLeave(){NET.leaving=true;const was=NET.mode;try{if(NET.ws){NET.ws.onclose=null;NET.ws.close()}}catch(x){}NET.ws=null;NET.mode=null;NET.up=false;NET.peer=false;NET.code='';NET.sentTeams='';
  try{sessionStorage.removeItem('sacpf_net')}catch(x){}
@@ -569,7 +578,12 @@ function netResume(){let s=null;try{s=JSON.parse(sessionStorage.getItem('sacpf_n
  if(s.mode=='host'){try{const a=JSON.parse(localStorage.getItem('sacpf_net_auto'));if(a&&a.code==s.code&&a.G&&Array.isArray(a.G.tm)&&a.G.tm.every(k=>T[k])){G=a.G;RL=a.RL||[];PICK[0]=G.tm[0];PICK[1]=G.tm[1]}}catch(x){}}
  netConnect()}
 const netCard=()=>NETON&&!NET.mode?`<div class=c><b>Play on two devices</b><p>One person hosts and gets a game code; the other joins with it. The host picks the two teams below and plays the first team; the friend plays the second.</p><button onclick="netHost()">Host a game</button> &nbsp; <input id=jc placeholder="Game code" size=7 maxlength=5 style="text-transform:uppercase"> <button onclick="netJoin()">Join a game</button>${NET.err?`<p><b>${NET.err}</b></p>`:''}</div>`:'';
-const guestWait=()=>`<div class=c><b>Game ${NET.code}</b><p>${!NET.up?'Connecting…':NET.peer?'Connected. Waiting for the host to choose the teams and start the game…':'Connected. Waiting for the host to come back…'}</p><button onclick="netLeave()">Leave</button></div>`;
+function gPick(k,quiet){NET.gpick=k;if(!k){if(!quiet)render();return}const o={t:'gteam',k};if(!NET.pool.has(k)&&T[k]){o.j=T[k];o.logo=LOGO[k]||''}netSend(o);if(!quiet)render()}
+const guestWait=()=>{let body;
+ if(!NET.up)body='Connecting…';else if(!NET.peer)body='Connected. Waiting for the host to come back…';
+ else{const ks=Object.keys(T),loading=NET.poolN&&NET.poolGot<NET.poolN,same=NET.gpick&&NET.gpick==NET.hk;
+  body='Connected. '+(loading?'Receiving the host\'s teams ('+NET.poolGot+' of '+NET.poolN+')…':'Choose the team you want to play.')+`</p><p>${NET.hk&&T[NET.hk]?'The host plays <b>'+NM[NET.hk]+(YR[NET.hk]?' ('+YR[NET.hk]+')':'')+'</b>. ':''}</p><p>Your team: <select ${loading?'disabled':''} onchange="gPick(this.value)"><option value="">— choose a team —</option>${ks.map(k=>`<option value="${k}" ${NET.gpick==k?'selected':''}>${NM[k]}${YR[k]?' ('+YR[k]+')':''}</option>`).join('')}</select></p><p>${same?'<b>The host already chose that team. Pick a different one.</b>':NET.gpick?'Team chosen. Waiting for the host to start the game…':''}`}
+ return `<div class=c><b>Game ${NET.code}</b><p>${body}</p><button onclick="netLeave()">Leave</button></div>`};
 {const s0=setupHTML;window.setupHTML=()=>NET.mode=='guest'?guestWait():netCard()+s0()}
 function netDecorate(){const e=document.getElementById('app');if(!e)return;
  if(NET.mode){const st=!NET.up?'reconnecting…':NET.mode=='host'?(NET.peer?'friend connected':'waiting for your friend — give them the code'):(NET.peer?'host connected':'host is away');
@@ -585,7 +599,7 @@ function netDecorate(){const e=document.getElementById('app');if(!e)return;
    if(NET.mode=='guest')[...e.querySelectorAll('button')].forEach(b=>{if(/^rst/.test(b.getAttribute('onclick')||''))b.disabled=true});
    [...e.querySelectorAll('p')].forEach(p=>{const t=p.lastChild;if(t&&t.nodeType==3)t.textContent=t.textContent.replace(' Offense, look away!','')})}
   e.insertAdjacentHTML('afterbegin',`<div class=c style="background:#e8f1ff"><small>Two-device game <b>${NET.code||'…'}</b> · ${st}${G?' · you are <b>'+nm(m)+'</b>':''} · <a href="#" onclick="netLeave();return false">leave</a>${wait}</small></div>`)}}
-{const r0=render;window.render=function(){if(NET.mode=='host'&&G&&G.ph=='cov'){ready();return}if(NET.mode=='host')netBroadcast();r0();if(NETON)netDecorate()}}
+{const r0=render;window.render=function(){if(NET.mode=='host'&&G&&G.ph=='cov'){ready();return}if(NET.mode=='host'){netSync();netBroadcast()}r0();if(NETON)netDecorate()}}
 if(NETON)netResume();
 
 render();

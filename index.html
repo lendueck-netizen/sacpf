@@ -92,7 +92,7 @@ const fgOK=()=>110-G.pos<=60&&O().place_kicking.fg[2].split(' ')[fgCol()]!='-';
 function fg(){const rw=O().place_kicking.fg[r2(G.po,'Field goal',t=>O().place_kicking.fg[t])].split(' '),c=rw[fgCol()];
  if(c=='GD'){sc(G.po,3);L('Field goal is GOOD (+3).');G.ph='kick';return}
  if(c=='SG'){sc(G.po,1);L('Single point (+1).');G.ph='kick';return}
- L('Field goal no good.');away(pr(c).n,rw[6])}
+ L('Field goal no good.');away(pr(c).n,/[AB]$/.test(c)?c.slice(-1):rw[6])}
 function ko(){const k=G.po,r=1-k,row=tm(k).punt_kickoff.kickoff[r2(k,'Kickoff',t=>tm(k).punt_kickoff.kickoff[t].join(' / '))],yl=+row[1]+(G.sf?20:0),R=tm(r).kickoff_return,
  pl=R.selector[r2(r,'Kick returner',t=>R.selector[t])],v=R[pl][r2(r,pl+' return',t=>R[pl][t][row[2]=='A'?0:1])][row[2]=='A'?0:1],x=pr(v);G.sf=0;
  L(`${nm(k)} kicks off ${row[0]} yds to the ${yl}. ${pl} returns ${x.n}.`);

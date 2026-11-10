@@ -50,3 +50,10 @@ GOOD TO KNOW
 UPDATING THE GAME LATER
   Replace index.html in your GitHub repository (open the file, use the pencil/upload option, commit).
   Render notices and redeploys on its own.
+
+
+TEAMS ON THE SITE (new)
+-----------------------
+The "teams" folder holds team files that everyone gets automatically. In GitHub use Add file > Upload files
+and drop team .json files into the teams folder (or upload teams/README.txt first so the folder exists).
+When you update from an older version, replace BOTH index.html and server.js, and add teams/README.txt.

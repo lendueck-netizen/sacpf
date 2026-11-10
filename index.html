@@ -100,7 +100,7 @@ function ko(){const k=G.po,r=1-k,row=tm(k).punt_kickoff.kickoff[r2(k,'Kickoff',t
 function snap(k,who){const o=O(),dd=Df(),ix={S:0,M:1,L:2}[k],run=k=='run',n0=RL.length,red=r2(1-G.po,'DTC '+(run?'Run':'Pass '+k),t=>{const c=dd.dtc[run?'run':'pass_'+k.toLowerCase()][t];return c[0]+c[1]}),wht=r2(G.po,who),
  cell=dd.dtc[run?'run':'pass_'+k.toLowerCase()][red],flag=cell[1],adj=cell[0]=='NC'?0:parseInt(cell[0]),set=DS+adj;
  G.hist.push((run?'r:':'p:')+who);
- L(`${nm(G.po)}: ${run?'Run':({S:'Short',M:'Medium',L:'Long'})[k]+' pass'} – ${who}. Defense roll ${red} (${cell[0]}${flag}): setting ${DS}${adj<0?'':'+'}${adj} = ${set}. Offense roll ${wht}.`);
+ L(`${nm(G.po)}: ${run?'Run':({S:'Short',M:'Medium',L:'Long'})[k]+' pass'} – ${who}. Defense roll ${red} (${cell[0]}${flag}): setting ${DS}${adj<0?'':'+'}${adj} = ${set}${set>6?', which counts as 6':set<0?', which counts as 0':''}. Offense roll ${wht}.`);
  if(run){if(flag=='P'){const n=PB.penalty_chart.rows[r2(1-G.po,'Penalty chart (defense)',t=>{const q=PB.penalty_chart.rows[t][1];return q+' '+PB.penalties[q].name})][1];if(ROUGH.has(n))RY=PB.penalties[n];else{pen('d',1,n);return}}
   const e=set<=0?PB.setting_0[wht][0]:set>=6?PB.setting_6[wht][0]:o.backs[who].run[wht][set-1],r=pr(e);
   L(`Result: ${e}`);tag(n0+1,`${who} ${set<=0?'Setting 0 column':set>=6?'Setting 6 column':'column '+set}`,e,set<=0||set>=6?{h:['Setting '+(set<=0?0:6)],g:t=>(set<=0?PB.setting_0:PB.setting_6)[t][0],m:0}:{h:['Col 1','Col 2','Col 3','Col 4','Col 5'],g:t=>o.backs[who].run[t],m:set-1});if(/\dN/.test(e))injure('run',who,null);if(r.p){pen('o',0);return}if(r.td){adv(110);return}
@@ -369,6 +369,12 @@ async function cpExport(){const list=cpAll();if(!list.length){CP.xmsg='There are
  if(dl){try{await dl.save({filename:fn,data:txt});CP.xmsg='Exported '+list.length+' player'+(list.length==1?'':'s')+' as '+fn+'.'}catch(x){CP.xmsg='The export was not completed.'}}
  else try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'application/json'}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);CP.xmsg='Exported '+list.length+' player'+(list.length==1?'':'s')+' as '+fn+'. Check your Downloads folder.'}catch(x){CP.xmsg='Your browser would not download the file.'}
  render()}
+async function cpExportTeam(){const k=document.getElementById('etm').value,j=JSON.parse(JSON.stringify(T[k]));if(LOGO[k])j.logo=LOGO[k];
+ const fn=((j.year||'')+'_'+(j.team||k).toLowerCase().replace(/[^a-z0-9]+/g,'_')+'.json').replace(/^_/,''),txt=JSON.stringify(j);let dl=null;
+ try{dl=(window.claude&&claude.use)?await claude.use('downloads'):null}catch(x){dl=null}
+ if(dl){try{await dl.save({filename:fn,data:txt});CP.xmsg='Exported '+fn+'.'}catch(x){CP.xmsg='The export was not completed.'}}
+ else try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'application/json'}));a.download=fn;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);CP.xmsg='Exported '+fn+'. Check your Downloads folder.'}catch(x){CP.xmsg='Your browser would not download the file.'}
+ render()}
 function cpImportText(txt){let o;try{o=JSON.parse(txt)}catch(x){return 'That file could not be read.'}
  if(!o||!o.sacpf_custom_players||!Array.isArray(o.players))return 'That is not a custom players file.';
  const added=[],skipped=[],dup=[];
@@ -396,7 +402,7 @@ function cpDedupe(){const seen=new Set();let n=0;
 function cpImport(f){if(!f)return;const r=new FileReader();r.onload=()=>{CP.xmsg=cpImportText(r.result);render()};r.readAsText(f)}
 function cpList(){const l=cpAll(),lab={rb:'Running back',wr:'Receiver',qb:'Quarterback'};
  return `<p><b>Your custom players</b></p>${l.length?'<ul style="margin:4px 0;padding-left:18px">'+l.map(x=>`<li>${x.card.name||x.key} (${lab[x.kind]}, ${NM[x.k]}${YR[x.k]?' '+YR[x.k]:''}) <button onclick="cpDel('${x.k}','${x.kind}','${x.key.replace(/'/g,"\\'")}')">Remove</button></li>`).join('')+'</ul>':'<p>None yet.</p>'}
- <p><button onclick="cpDedupe()">Remove duplicates</button> </p><p><button onclick="cpExport()">Export custom players</button> Load from a file: <input type="file" accept=".json,application/json" onchange="cpImport(this.files[0])"></p><p>${CP.xmsg||''}</p>`}
+ <p><button onclick="cpDedupe()">Remove duplicates</button> </p><p>Export a team file for the site: <select id=etm>${Object.keys(T).map(k=>`<option value="${k}" ${k==(CP.team||PICK[0])?'selected':''}>${NM[k]}${YR[k]?' ('+YR[k]+')':''}</option>`).join('')}</select> <button onclick="cpExportTeam()">Export team file</button><br><small>Includes the logo and any custom players. Upload it to the teams folder on GitHub so everyone gets the team.</small></p><p><button onclick="cpExport()">Export custom players</button> Load from a file: <input type="file" accept=".json,application/json" onchange="cpImport(this.files[0])"></p><p>${CP.xmsg||''}</p>`}
 function cpBox(){const ks=Object.keys(T),k=CP.team||PICK[0],inp=(f,l,w)=>`<label style="display:inline-block;margin:3px 8px 3px 0">${l}<br><input style="width:${w||70}px" inputmode="numeric" value="${CP[f]}" oninput="cpSet('${f}',this.value)"></label>`;
  return `<div class=c><b>Add a player</b><p>Create a player from real season stats. The card starts from the average card for the position and is adjusted to match; it is an approximation, not a printed card.</p><p>Type: <select onchange="CP.kind=this.value;CP.msg='';render()"><option value=rb ${CP.kind=='rb'?'selected':''}>Running back</option><option value=wr ${CP.kind=='wr'?'selected':''}>Receiver</option><option value=qb ${CP.kind=='qb'?'selected':''}>Quarterback</option></select></p>
  <p>Team: <select onchange="CP.team=this.value;cpPrev()">${ks.map(x=>`<option value="${x}" ${k==x?'selected':''}>${NM[x]}${YR[x]?' ('+YR[x]+')':''}</option>`).join('')}</select> Position: ${CP.kind=='qb'?'QB':CP.kind=='wr'?`<select onchange="cpSet('rpos',this.value)">${['SE','FL','WB','TE'].map(x=>`<option ${CP.rpos==x?'selected':''}>${x}</option>`).join('')}</select>`:`<select onchange="cpSet('pos',this.value)"><option ${CP.pos=='HB'?'selected':''}>HB</option><option ${CP.pos=='FB'?'selected':''}>FB</option></select>`}</p>
@@ -624,4 +630,13 @@ render();
 {const os=window.onside;window.onside=function(...a){if(G){G.bn='';G.sch=[0,0]}return os.apply(this,a)}}
 let _ll=null;{const r1=window.render;window.render=function(){const tp=document.getElementById('tbp');if(tp)tp.remove();r1();const m=document.querySelector('main');if(m)m.classList.toggle('wide',!!G&&G.ph!='lineup');
  if(G&&G.log){const n=G.log.length;if(_ll!==null&&n!==_ll&&G.ph!='lineup'&&!STV){const sb=document.getElementById('sb');if(sb){const r=sb.getBoundingClientRect();if(r.top<0||r.top>window.innerHeight*.4)sb.scrollIntoView({block:'start'})}}_ll=n}else _ll=null}}
+
+/* ---- teams kept on the site (teams/ folder of the repo) ---- */
+async function loadRepoTeams(){if(!window.SACPF_NET)return;let list;try{const r=await fetch('/teams.json',{cache:'no-store'});if(!r.ok)return;list=await r.json()}catch(e){return}
+ let n=0;for(const it of list||[]){const j=it&&it.team;try{if(!j||checkTeam(j).length)continue;
+  const k=Object.keys(T).find(x=>NM[x]==j.team&&YR[x]==j.year)||(j.year+'_'+(j.team||'team').toLowerCase().replace(/[^a-z0-9]+/g,'_'));
+  if(IMP[k])continue;                         // a copy saved in this browser wins (it may hold custom players)
+  addTeam(k,j);if(LOGOS[k])LOGO[k]=LOGOS[k];n++}catch(e){}}
+ if(n&&!G)render()}
+loadRepoTeams();
 </script></body></html>

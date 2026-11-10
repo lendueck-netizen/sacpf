@@ -13,6 +13,18 @@ const PAGE = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8')
 const server = http.createServer((req, res) => {
   const url = (req.url || '/').split('?')[0];
   if (url === '/healthz') { res.writeHead(200, { 'Content-Type': 'text/plain' }); res.end('ok'); return; }
+  if (url === '/teams.json') {                      // team files kept in the teams/ folder of the repo
+    const out = [];
+    try {
+      const dir = path.join(__dirname, 'teams');
+      for (const f of fs.readdirSync(dir).sort()) {
+        if (!/\.json$/i.test(f)) continue;
+        try { out.push({ file: f, team: JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')) }); } catch (e) { console.log('Skipping unreadable team file ' + f); }
+      }
+    } catch (e) {}
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-cache' });
+    res.end(JSON.stringify(out)); return;
+  }
   if (url === '/' || url === '/index.html') {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
     res.end(PAGE); return;

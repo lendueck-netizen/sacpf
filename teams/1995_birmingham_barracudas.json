@@ -1,0 +1,2290 @@
+{
+ "team": "Birmingham Barracudas",
+ "year": 1995,
+ "short": "BARRACUDAS",
+ "qb_passing": {
+  "Dunnigan": {
+   "num": "QB1",
+   "rating": -6,
+   "imp": "",
+   "name": "Matt Dunnigan",
+   "passing": {
+    "2": [
+     "",
+     "",
+     "",
+     "",
+     "C"
+    ],
+    "3": [
+     "C",
+     "C",
+     "C",
+     "",
+     ""
+    ],
+    "4": [
+     "C",
+     "C",
+     "",
+     "C",
+     ""
+    ],
+    "5": [
+     "C",
+     "C",
+     "CP",
+     "",
+     ""
+    ],
+    "6": [
+     "CP",
+     "C",
+     "C",
+     "",
+     ""
+    ],
+    "7": [
+     "C",
+     "C",
+     "CN",
+     "",
+     ""
+    ],
+    "8": [
+     "",
+     "",
+     "",
+     "C",
+     ""
+    ],
+    "9": [
+     "C",
+     "",
+     "",
+     "C",
+     "C"
+    ],
+    "10": [
+     "",
+     "P",
+     "",
+     "",
+     "C"
+    ],
+    "11": [
+     "",
+     "",
+     "F",
+     "",
+     ""
+    ],
+    "12": [
+     "",
+     "",
+     "",
+     "P",
+     "P"
+    ]
+   },
+   "rush": {
+    "2": [
+     "RX",
+     "RX",
+     "RX",
+     "-10"
+    ],
+    "3": [
+     "RX",
+     "RX",
+     "RX",
+     "-12"
+    ],
+    "4": [
+     "RX",
+     "RX",
+     "RX",
+     "-7"
+    ],
+    "5": [
+     "",
+     "RX",
+     "RX",
+     "-6"
+    ],
+    "6": [
+     "",
+     "",
+     "RX",
+     "-9"
+    ],
+    "7": [
+     "R",
+     "R",
+     "RX",
+     "-11"
+    ],
+    "8": [
+     "",
+     "R",
+     "R",
+     "-13"
+    ],
+    "9": [
+     "",
+     "R",
+     "R",
+     "-11"
+    ],
+    "10": [
+     "",
+     "X",
+     "RX",
+     "-9"
+    ],
+    "11": [
+     "RX",
+     "R",
+     "X",
+     "RUN"
+    ],
+    "12": [
+     "RX",
+     "R",
+     "R",
+     "-17"
+    ]
+   }
+  },
+  "Klinger": {
+   "num": "QB2",
+   "rating": -6,
+   "imp": "Import",
+   "name": "Jimmy Klinger",
+   "passing": {
+    "2": [
+     "C",
+     "",
+     "C",
+     "C",
+     ""
+    ],
+    "3": [
+     "",
+     "C",
+     "",
+     "C",
+     ""
+    ],
+    "4": [
+     "",
+     "",
+     "CP",
+     "C",
+     "C"
+    ],
+    "5": [
+     "C",
+     "C",
+     "C",
+     "C",
+     "C"
+    ],
+    "6": [
+     "CP",
+     "C",
+     "",
+     "",
+     ""
+    ],
+    "7": [
+     "C",
+     "C",
+     "CN",
+     "",
+     ""
+    ],
+    "8": [
+     "C",
+     "",
+     "",
+     "",
+     ""
+    ],
+    "9": [
+     "",
+     "",
+     "",
+     "",
+     "F"
+    ],
+    "10": [
+     "",
+     "P",
+     "",
+     "",
+     ""
+    ],
+    "11": [
+     "",
+     "",
+     "",
+     "P",
+     ""
+    ],
+    "12": [
+     "F",
+     "",
+     "F",
+     "",
+     "P"
+    ]
+   },
+   "rush": {
+    "2": [
+     "RX",
+     "RX",
+     "RX",
+     "-4"
+    ],
+    "3": [
+     "RX",
+     "RX",
+     "RX",
+     "-9"
+    ],
+    "4": [
+     "RX",
+     "RX",
+     "RX",
+     "-12"
+    ],
+    "5": [
+     "RX",
+     "RX",
+     "RX",
+     "-8"
+    ],
+    "6": [
+     "",
+     "RX",
+     "RX",
+     "-14"
+    ],
+    "7": [
+     "",
+     "RX",
+     "RX",
+     "-9"
+    ],
+    "8": [
+     "",
+     "X",
+     "RX",
+     "-10"
+    ],
+    "9": [
+     "RX",
+     "RX",
+     "RX",
+     "-11"
+    ],
+    "10": [
+     "RX",
+     "",
+     "RX",
+     "-6"
+    ],
+    "11": [
+     "X",
+     "",
+     "RX",
+     "RUN"
+    ],
+    "12": [
+     "X",
+     "RX",
+     "",
+     "-16"
+    ]
+   }
+  },
+  "Simmons": {
+   "num": "QB3",
+   "rating": 0,
+   "imp": "",
+   "name": "Kelvin Simmons",
+   "passing": {
+    "2": [
+     "",
+     "",
+     "P",
+     "",
+     "P"
+    ],
+    "3": [
+     "C",
+     "",
+     "",
+     "P",
+     "P"
+    ],
+    "4": [
+     "C",
+     "",
+     "",
+     "",
+     ""
+    ],
+    "5": [
+     "CP",
+     "CP",
+     "",
+     "F",
+     ""
+    ],
+    "6": [
+     "C",
+     "C",
+     "",
+     "",
+     ""
+    ],
+    "7": [
+     "C",
+     "C",
+     "CN",
+     "C",
+     ""
+    ],
+    "8": [
+     "C",
+     "C",
+     "C",
+     "C",
+     ""
+    ],
+    "9": [
+     "C",
+     "C",
+     "C",
+     "C",
+     "C"
+    ],
+    "10": [
+     "",
+     "",
+     "C",
+     "",
+     "C"
+    ],
+    "11": [
+     "",
+     "",
+     "CP",
+     "",
+     "C"
+    ],
+    "12": [
+     "",
+     "",
+     "",
+     "",
+     "C"
+    ]
+   },
+   "rush": {
+    "2": [
+     "RX",
+     "RX",
+     "RX",
+     "-12"
+    ],
+    "3": [
+     "RX",
+     "RX",
+     "RX",
+     "RUN"
+    ],
+    "4": [
+     "RX",
+     "RX",
+     "RX",
+     "-6"
+    ],
+    "5": [
+     "RX",
+     "RX",
+     "RX",
+     "-11"
+    ],
+    "6": [
+     "RX",
+     "RX",
+     "RX",
+     "-8"
+    ],
+    "7": [
+     "X",
+     "RX",
+     "RX",
+     "RUN"
+    ],
+    "8": [
+     "X",
+     "RX",
+     "RX",
+     "RUN"
+    ],
+    "9": [
+     "X",
+     "X",
+     "RX",
+     "-7"
+    ],
+    "10": [
+     "X",
+     "X",
+     "RX",
+     "RUN"
+    ],
+    "11": [
+     "RX",
+     "RX",
+     "RX",
+     "-8"
+    ],
+    "12": [
+     "X",
+     "RX",
+     "X",
+     "-13"
+    ]
+   }
+  }
+ },
+ "qb_running": {
+  "Simmons": {
+   "2": [
+    "8",
+    "8",
+    "9",
+    "9",
+    "10F"
+   ],
+   "3": [
+    "7",
+    "9",
+    "10",
+    "11P",
+    "11"
+   ],
+   "4": [
+    "-2",
+    "-2",
+    "-2",
+    "-1",
+    "0"
+   ],
+   "5": [
+    "6",
+    "8",
+    "10",
+    "12",
+    "14"
+   ],
+   "6": [
+    "-1",
+    "1",
+    "2",
+    "3",
+    "5"
+   ],
+   "7": [
+    "3",
+    "4",
+    "6N",
+    "8A",
+    "11P"
+   ],
+   "8": [
+    "5",
+    "5",
+    "5",
+    "6",
+    "7"
+   ],
+   "9": [
+    "6",
+    "7",
+    "9",
+    "11",
+    "13"
+   ],
+   "10": [
+    "-3",
+    "-3",
+    "-3",
+    "-2",
+    "-1"
+   ],
+   "11": [
+    "9",
+    "11",
+    "13",
+    "14",
+    "14"
+   ],
+   "12": [
+    "11P",
+    "15",
+    "19",
+    "22",
+    "24"
+   ]
+  },
+  "Klinger": {
+   "2": [
+    "8",
+    "10",
+    "12",
+    "13",
+    "15P"
+   ],
+   "3": [
+    "2",
+    "3",
+    "3",
+    "4",
+    "4"
+   ],
+   "4": [
+    "-3",
+    "-3",
+    "-3P",
+    "-3",
+    "-3"
+   ],
+   "5": [
+    "2",
+    "2",
+    "2",
+    "3",
+    "3"
+   ],
+   "6": [
+    "1",
+    "1",
+    "1",
+    "2",
+    "2P"
+   ],
+   "7": [
+    "3",
+    "5",
+    "6N",
+    "7A",
+    "9"
+   ],
+   "8": [
+    "1",
+    "1",
+    "2",
+    "2",
+    "2"
+   ],
+   "9": [
+    "0",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "10": [
+    "1P",
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "11": [
+    "-1",
+    "-1",
+    "-1",
+    "-1",
+    "-1"
+   ],
+   "12": [
+    "1",
+    "3",
+    "5",
+    "7",
+    "10F"
+   ]
+  },
+  "Dunnigan": {
+   "2": [
+    "14",
+    "15",
+    "15",
+    "16",
+    "17F"
+   ],
+   "3": [
+    "6",
+    "8",
+    "9",
+    "9",
+    "9"
+   ],
+   "4": [
+    "-3",
+    "-3",
+    "-3",
+    "-2",
+    "-1"
+   ],
+   "5": [
+    "4",
+    "4",
+    "6",
+    "8",
+    "10P"
+   ],
+   "6": [
+    "-2",
+    "0",
+    "1",
+    "3",
+    "4P"
+   ],
+   "7": [
+    "3",
+    "3",
+    "4N",
+    "5A",
+    "7"
+   ],
+   "8": [
+    "4",
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "9": [
+    "2",
+    "2",
+    "4",
+    "4",
+    "4"
+   ],
+   "10": [
+    "-1",
+    "-1",
+    "-1",
+    "0",
+    "1"
+   ],
+   "11": [
+    "8",
+    "8",
+    "10",
+    "11",
+    "11"
+   ],
+   "12": [
+    "12P",
+    "14",
+    "16",
+    "19",
+    "27"
+   ]
+  }
+ },
+ "backs": {
+  "Woodside": {
+   "num": "RB1",
+   "pos": "HB/FB",
+   "rating": -6,
+   "imp": "",
+   "name": "Keith Woodside",
+   "run": {
+    "2": [
+     "8F",
+     "10",
+     "11",
+     "13",
+     "14"
+    ],
+    "3": [
+     "2",
+     "3",
+     "5",
+     "6",
+     "7"
+    ],
+    "4": [
+     "-2",
+     "-2",
+     "-2",
+     "-1",
+     "0"
+    ],
+    "5": [
+     "3",
+     "4",
+     "6",
+     "7",
+     "9"
+    ],
+    "6": [
+     "1",
+     "2",
+     "4P",
+     "5",
+     "7"
+    ],
+    "7": [
+     "4",
+     "6",
+     "6N",
+     "9A",
+     "8"
+    ],
+    "8": [
+     "7P",
+     "8",
+     "9",
+     "10",
+     "12"
+    ],
+    "9": [
+     "10",
+     "10",
+     "11P",
+     "12",
+     "12"
+    ],
+    "10": [
+     "-3",
+     "-3",
+     "-3",
+     "-2",
+     "-1"
+    ],
+    "11": [
+     "10",
+     "10",
+     "12",
+     "12",
+     "13"
+    ],
+    "12": [
+     "14",
+     "16",
+     "18",
+     "22",
+     "62"
+    ]
+   },
+   "rec": {
+    "2": [
+     "11",
+     "21",
+     ""
+    ],
+    "3": [
+     "4",
+     "16",
+     ""
+    ],
+    "4": [
+     "2",
+     "13",
+     ""
+    ],
+    "5": [
+     "3",
+     "8",
+     ""
+    ],
+    "6": [
+     "5*",
+     "9",
+     ""
+    ],
+    "7": [
+     "-2",
+     "10",
+     ""
+    ],
+    "8": [
+     "8*",
+     "7",
+     ""
+    ],
+    "9": [
+     "4",
+     "15",
+     ""
+    ],
+    "10": [
+     "1",
+     "16",
+     ""
+    ],
+    "11": [
+     "10",
+     "13",
+     ""
+    ],
+    "12": [
+     "7F",
+     "52",
+     ""
+    ]
+   }
+  },
+  "Long": {
+   "num": "RB2",
+   "pos": "HB/FB/WB",
+   "rating": -5,
+   "imp": "",
+   "name": "Ted Long",
+   "run": {
+    "2": [
+     "3",
+     "5",
+     "6",
+     "9",
+     "9"
+    ],
+    "3": [
+     "1",
+     "1",
+     "3",
+     "4",
+     "5"
+    ],
+    "4": [
+     "-2",
+     "-2",
+     "-2",
+     "-1",
+     "0"
+    ],
+    "5": [
+     "1",
+     "1P",
+     "2",
+     "2",
+     "3"
+    ],
+    "6": [
+     "0",
+     "0",
+     "1",
+     "3",
+     "4"
+    ],
+    "7": [
+     "1",
+     "2",
+     "2N",
+     "2A",
+     "3"
+    ],
+    "8": [
+     "3",
+     "3",
+     "4P",
+     "5",
+     "6"
+    ],
+    "9": [
+     "0",
+     "0",
+     "1",
+     "1",
+     "2"
+    ],
+    "10": [
+     "1",
+     "2",
+     "2",
+     "2",
+     "3P"
+    ],
+    "11": [
+     "-2",
+     "-2",
+     "-2",
+     "-1",
+     "0"
+    ],
+    "12": [
+     "0",
+     "1P",
+     "1",
+     "2",
+     "3"
+    ]
+   },
+   "rec": {
+    "2": [
+     "5",
+     "20",
+     ""
+    ],
+    "3": [
+     "14",
+     "15",
+     ""
+    ],
+    "4": [
+     "2*",
+     "16F",
+     ""
+    ],
+    "5": [
+     "3*",
+     "7",
+     ""
+    ],
+    "6": [
+     "6F",
+     "9",
+     ""
+    ],
+    "7": [
+     "-2",
+     "8",
+     ""
+    ],
+    "8": [
+     "0",
+     "11",
+     ""
+    ],
+    "9": [
+     "5",
+     "15",
+     ""
+    ],
+    "10": [
+     "7",
+     "10",
+     ""
+    ],
+    "11": [
+     "1*",
+     "17",
+     ""
+    ],
+    "12": [
+     "9",
+     "35",
+     ""
+    ]
+   }
+  },
+  "Moffet": {
+   "num": "RB3",
+   "pos": "HB/FB",
+   "rating": 4,
+   "imp": "",
+   "name": "Donald Moffet",
+   "run": {
+    "2": [
+     "1",
+     "1",
+     "3",
+     "5",
+     "6"
+    ],
+    "3": [
+     "2P",
+     "4",
+     "5",
+     "7",
+     "8P"
+    ],
+    "4": [
+     "-1",
+     "-1",
+     "-1",
+     "0",
+     "1"
+    ],
+    "5": [
+     "0",
+     "0",
+     "2",
+     "2P",
+     "3"
+    ],
+    "6": [
+     "-1",
+     "0",
+     "1",
+     "3",
+     "4"
+    ],
+    "7": [
+     "3",
+     "5",
+     "6N",
+     "7A",
+     "7"
+    ],
+    "8": [
+     "2P",
+     "3",
+     "4",
+     "5",
+     "6"
+    ],
+    "9": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "6"
+    ],
+    "10": [
+     "12",
+     "13",
+     "14",
+     "15",
+     "17"
+    ],
+    "11": [
+     "-1",
+     "-1",
+     "-1",
+     "0",
+     "1"
+    ],
+    "12": [
+     "7",
+     "8",
+     "16",
+     "22",
+     "53"
+    ]
+   },
+   "rec": {
+    "2": [
+     "3",
+     "17",
+     ""
+    ],
+    "3": [
+     "8",
+     "12",
+     ""
+    ],
+    "4": [
+     "7*",
+     "14",
+     ""
+    ],
+    "5": [
+     "1*",
+     "8",
+     ""
+    ],
+    "6": [
+     "6",
+     "12",
+     ""
+    ],
+    "7": [
+     "-1",
+     "7",
+     ""
+    ],
+    "8": [
+     "0",
+     "13",
+     ""
+    ],
+    "9": [
+     "8",
+     "9",
+     ""
+    ],
+    "10": [
+     "4",
+     "12",
+     ""
+    ],
+    "11": [
+     "11*",
+     "10",
+     ""
+    ],
+    "12": [
+     "5",
+     "23",
+     ""
+    ]
+   }
+  },
+  "McLendon": {
+   "num": "RB4",
+   "pos": "HB/FB/WB",
+   "rating": 3,
+   "imp": "",
+   "name": "William McLendon",
+   "run": {
+    "2": [
+     "3",
+     "6",
+     "6",
+     "6",
+     "6"
+    ],
+    "3": [
+     "1",
+     "1",
+     "3",
+     "4",
+     "4"
+    ],
+    "4": [
+     "-2",
+     "-2",
+     "-2",
+     "-1",
+     "0"
+    ],
+    "5": [
+     "3",
+     "4",
+     "4",
+     "4",
+     "4P"
+    ],
+    "6": [
+     "0P",
+     "1",
+     "2",
+     "5",
+     "7"
+    ],
+    "7": [
+     "5",
+     "7",
+     "10N",
+     "10A",
+     "11"
+    ],
+    "8": [
+     "2",
+     "3",
+     "3",
+     "3",
+     "3"
+    ],
+    "9": [
+     "0",
+     "1",
+     "2P",
+     "2",
+     "3"
+    ],
+    "10": [
+     "1",
+     "2",
+     "3",
+     "3",
+     "5"
+    ],
+    "11": [
+     "-3",
+     "-3",
+     "-3",
+     "-2",
+     "-1"
+    ],
+    "12": [
+     "9",
+     "11",
+     "14",
+     "16",
+     "20"
+    ]
+   },
+   "rec": {
+    "2": [
+     "1",
+     "20",
+     ""
+    ],
+    "3": [
+     "7*",
+     "16",
+     ""
+    ],
+    "4": [
+     "8*",
+     "13",
+     ""
+    ],
+    "5": [
+     "5",
+     "8",
+     ""
+    ],
+    "6": [
+     "9*",
+     "14",
+     ""
+    ],
+    "7": [
+     "6",
+     "9",
+     ""
+    ],
+    "8": [
+     "-2",
+     "11",
+     ""
+    ],
+    "9": [
+     "12",
+     "14",
+     ""
+    ],
+    "10": [
+     "4",
+     "10",
+     ""
+    ],
+    "11": [
+     "3",
+     "20",
+     ""
+    ],
+    "12": [
+     "2",
+     "19",
+     ""
+    ]
+   }
+  }
+ },
+ "receivers": {
+  "Grant": {
+   "pos": "TE",
+   "rating": -6,
+   "imp": "Import",
+   "name": "Marcus Grant",
+   "rec": {
+    "2": [
+     "15",
+     "19",
+     "65"
+    ],
+    "3": [
+     "9",
+     "17",
+     "54"
+    ],
+    "4": [
+     "4",
+     "14",
+     "36"
+    ],
+    "5": [
+     "14",
+     "16",
+     "26"
+    ],
+    "6": [
+     "9",
+     "9",
+     "45"
+    ],
+    "7": [
+     "-1",
+     "22",
+     "34"
+    ],
+    "8": [
+     "2",
+     "13",
+     "29"
+    ],
+    "9": [
+     "6",
+     "11",
+     "33"
+    ],
+    "10": [
+     "5",
+     "15",
+     "35"
+    ],
+    "11": [
+     "3",
+     "10",
+     "41"
+    ],
+    "12": [
+     "0",
+     "20",
+     "TD"
+    ]
+   }
+  },
+  "Briton": {
+   "pos": "SE",
+   "rating": 1,
+   "imp": "",
+   "name": "Eddie Briton",
+   "rec": {
+    "2": [
+     "13",
+     "14",
+     "52"
+    ],
+    "3": [
+     "8",
+     "24",
+     "41"
+    ],
+    "4": [
+     "2",
+     "17",
+     "36"
+    ],
+    "5": [
+     "1",
+     "11",
+     "29"
+    ],
+    "6": [
+     "-1",
+     "13",
+     "32"
+    ],
+    "7": [
+     "13",
+     "10",
+     "25"
+    ],
+    "8": [
+     "3",
+     "9",
+     "35"
+    ],
+    "9": [
+     "7",
+     "19",
+     "27"
+    ],
+    "10": [
+     "4",
+     "15",
+     "44"
+    ],
+    "11": [
+     "5",
+     "21",
+     "60"
+    ],
+    "12": [
+     "13",
+     "8",
+     "71"
+    ]
+   }
+  },
+  "Phillips": {
+   "pos": "FL",
+   "rating": 0,
+   "imp": "Import",
+   "name": "Jason Phillips",
+   "rec": {
+    "2": [
+     "6F",
+     "18",
+     "54"
+    ],
+    "3": [
+     "12",
+     "11F",
+     "64"
+    ],
+    "4": [
+     "2",
+     "9",
+     "31"
+    ],
+    "5": [
+     "11",
+     "10",
+     "44"
+    ],
+    "6": [
+     "-1",
+     "10",
+     "35"
+    ],
+    "7": [
+     "9",
+     "17",
+     "34"
+    ],
+    "8": [
+     "2",
+     "16",
+     "27"
+    ],
+    "9": [
+     "9",
+     "22",
+     "29"
+    ],
+    "10": [
+     "8",
+     "13",
+     "38"
+    ],
+    "11": [
+     "4",
+     "19",
+     "73"
+    ],
+    "12": [
+     "17",
+     "15",
+     "TD"
+    ]
+   }
+  },
+  "Morris": {
+   "pos": "SE/WB/TE/FL",
+   "rating": 3,
+   "imp": "Import",
+   "name": "Delius Morris",
+   "rec": {
+    "2": [
+     "18",
+     "14",
+     "35"
+    ],
+    "3": [
+     "6",
+     "21",
+     "29"
+    ],
+    "4": [
+     "7",
+     "13",
+     "34"
+    ],
+    "5": [
+     "0",
+     "11F",
+     "37"
+    ],
+    "6": [
+     "5",
+     "8",
+     "25"
+    ],
+    "7": [
+     "2F",
+     "18",
+     "29"
+    ],
+    "8": [
+     "14",
+     "14",
+     "22"
+    ],
+    "9": [
+     "3",
+     "12",
+     "31"
+    ],
+    "10": [
+     "1",
+     "17",
+     "31"
+    ],
+    "11": [
+     "8",
+     "20",
+     "40"
+    ],
+    "12": [
+     "10",
+     "13",
+     "34"
+    ]
+   }
+  }
+ },
+ "place_kicking": {
+  "name": "Luis Zendaja:",
+  "fg_cols": [
+   "1-20",
+   "21-30",
+   "31-40",
+   "41-50",
+   "51-55",
+   "56-60"
+  ],
+  "fg": {
+   "2": "GD GD GD GD GD - -",
+   "3": "GD GD GD GD 49A - -",
+   "4": "GD GD GD GD 51A - -",
+   "5": "GD GD GD GD 45A - -",
+   "6": "GD GD GD GD 53B - -",
+   "7": "GD GD GD GD 52B - -",
+   "8": "GD GD GD 51A 47B - -",
+   "9": "GD GD 36B 45B 53A - -",
+   "10": "GD GD 46A 45B 52B - -",
+   "11": "GD 43B GD GD 49B - -",
+   "12": "SG GD 41B GD 46A - -"
+  },
+  "convert": {
+   "2": [
+    "WD",
+    ""
+   ],
+   "3": [
+    "GD",
+    ""
+   ],
+   "4": [
+    "GD",
+    ""
+   ],
+   "5": [
+    "GD",
+    ""
+   ],
+   "6": [
+    "GD",
+    ""
+   ],
+   "7": [
+    "GD",
+    ""
+   ],
+   "8": [
+    "GD",
+    ""
+   ],
+   "9": [
+    "GD",
+    ""
+   ],
+   "10": [
+    "GD",
+    ""
+   ],
+   "11": [
+    "GD",
+    ""
+   ],
+   "12": [
+    "GD",
+    ""
+   ]
+  }
+ },
+ "punt_kickoff": {
+  "name": "Scott Player",
+  "punter": "Scott Player",
+  "kicker": "Luis Zendajas",
+  "punt": {
+   "2": [
+    "30",
+    "78",
+    "A"
+   ],
+   "3": [
+    "38",
+    "54",
+    "OoB"
+   ],
+   "4": [
+    "44",
+    "55P",
+    "B"
+   ],
+   "5": [
+    "-K2-",
+    "52",
+    "B"
+   ],
+   "6": [
+    "-K2-",
+    "49",
+    "A"
+   ],
+   "7": [
+    "39",
+    "53P",
+    "B"
+   ],
+   "8": [
+    "40",
+    "54",
+    "B"
+   ],
+   "9": [
+    "38",
+    "47P",
+    "A"
+   ],
+   "10": [
+    "42",
+    "63",
+    "A"
+   ],
+   "11": [
+    "38",
+    "71",
+    "A"
+   ],
+   "12": [
+    "36",
+    "BLK",
+    "B"
+   ]
+  },
+  "kickoff": {
+   "2": [
+    "65",
+    "0",
+    "B",
+    "19"
+   ],
+   "3": [
+    "61",
+    "4",
+    "A",
+    "14R"
+   ],
+   "4": [
+    "54",
+    "11",
+    "B",
+    "17"
+   ],
+   "5": [
+    "51",
+    "14",
+    "B",
+    "15"
+   ],
+   "6": [
+    "53",
+    "12",
+    "A",
+    "14"
+   ],
+   "7": [
+    "58",
+    "7",
+    "A",
+    "16"
+   ],
+   "8": [
+    "55",
+    "10",
+    "B",
+    "12"
+   ],
+   "9": [
+    "52",
+    "13",
+    "A",
+    "14"
+   ],
+   "10": [
+    "49",
+    "16",
+    "B",
+    "20"
+   ],
+   "11": [
+    "64",
+    "1",
+    "B",
+    "18R"
+   ],
+   "12": [
+    "62",
+    "3",
+    "B",
+    "14R"
+   ]
+  }
+ },
+ "kickoff_return": {
+  "selector": {
+   "2": "Long",
+   "3": "Long",
+   "4": "Long",
+   "5": "Long",
+   "6": "Long",
+   "7": "Drawhorn",
+   "8": "Cody",
+   "9": "Cody",
+   "10": "Cody",
+   "11": "Cody",
+   "12": "Long"
+  },
+  "Cody": {
+   "2": [
+    "18",
+    "27"
+   ],
+   "3": [
+    "19",
+    "24"
+   ],
+   "4": [
+    "14",
+    "29"
+   ],
+   "5": [
+    "18",
+    "28"
+   ],
+   "6": [
+    "-1",
+    "24"
+   ],
+   "7": [
+    "21",
+    "9"
+   ],
+   "8": [
+    "7",
+    "29"
+   ],
+   "9": [
+    "15",
+    "19"
+   ],
+   "10": [
+    "16",
+    "24"
+   ],
+   "11": [
+    "23",
+    "27"
+   ],
+   "12": [
+    "19",
+    "35"
+   ]
+  },
+  "Long": {
+   "2": [
+    "11F",
+    "24"
+   ],
+   "3": [
+    "19",
+    "20"
+   ],
+   "4": [
+    "15",
+    "24"
+   ],
+   "5": [
+    "16",
+    "25"
+   ],
+   "6": [
+    "-1",
+    "21"
+   ],
+   "7": [
+    "19",
+    "9"
+   ],
+   "8": [
+    "6",
+    "24"
+   ],
+   "9": [
+    "16",
+    "23"
+   ],
+   "10": [
+    "14",
+    "25"
+   ],
+   "11": [
+    "15",
+    "22"
+   ],
+   "12": [
+    "18",
+    "26"
+   ]
+  },
+  "Drawhorn": {
+   "2": [
+    "15",
+    "29"
+   ],
+   "3": [
+    "20",
+    "21"
+   ],
+   "4": [
+    "18",
+    "28"
+   ],
+   "5": [
+    "19",
+    "30"
+   ],
+   "6": [
+    "-1",
+    "24"
+   ],
+   "7": [
+    "22",
+    "8"
+   ],
+   "8": [
+    "5",
+    "28"
+   ],
+   "9": [
+    "18",
+    "25"
+   ],
+   "10": [
+    "21",
+    "29"
+   ],
+   "11": [
+    "17",
+    "32"
+   ],
+   "12": [
+    "18",
+    "44"
+   ]
+  }
+ },
+ "punt_return": {
+  "selector": {
+   "2": "Cody",
+   "3": "Cody",
+   "4": "Cody",
+   "5": "Cody",
+   "6": "Long",
+   "7": "Long",
+   "8": "Long",
+   "9": "Drawhorn",
+   "10": "Drawhorn",
+   "11": "Drawhorn",
+   "12": "Drawhorn"
+  },
+  "Cody": {
+   "2": [
+    "6P",
+    "22"
+   ],
+   "3": [
+    "3P",
+    "11"
+   ],
+   "4": [
+    "-2",
+    "21"
+   ],
+   "5": [
+    "1",
+    "16"
+   ],
+   "6": [
+    "4",
+    "15P"
+   ],
+   "7": [
+    "2",
+    "19"
+   ],
+   "8": [
+    "7",
+    "20"
+   ],
+   "9": [
+    "3",
+    "17"
+   ],
+   "10": [
+    "8",
+    "16"
+   ],
+   "11": [
+    "2",
+    "23"
+   ],
+   "12": [
+    "-1F",
+    "25"
+   ]
+  },
+  "Long": {
+   "2": [
+    "2",
+    "21"
+   ],
+   "3": [
+    "1",
+    "14"
+   ],
+   "4": [
+    "-3",
+    "13"
+   ],
+   "5": [
+    "3",
+    "10"
+   ],
+   "6": [
+    "0",
+    "12P"
+   ],
+   "7": [
+    "1",
+    "10"
+   ],
+   "8": [
+    "2",
+    "11"
+   ],
+   "9": [
+    "-2",
+    "12"
+   ],
+   "10": [
+    "3P",
+    "14"
+   ],
+   "11": [
+    "0",
+    "13"
+   ],
+   "12": [
+    "6",
+    "50"
+   ]
+  },
+  "Drawhorn": {
+   "2": [
+    "6",
+    "15"
+   ],
+   "3": [
+    "8",
+    "14P"
+   ],
+   "4": [
+    "1P",
+    "13"
+   ],
+   "5": [
+    "7",
+    "16"
+   ],
+   "6": [
+    "3",
+    "13"
+   ],
+   "7": [
+    "-1",
+    "16"
+   ],
+   "8": [
+    "1",
+    "17"
+   ],
+   "9": [
+    "0",
+    "15"
+   ],
+   "10": [
+    "7",
+    "19"
+   ],
+   "11": [
+    "1",
+    "13P"
+   ],
+   "12": [
+    "9",
+    "33"
+   ]
+  }
+ },
+ "dtc": {
+  "team": "Birmingham Barracudas",
+  "ratings": {
+   "run": "",
+   "pass_s": "",
+   "pass_m": "",
+   "pass_l": ""
+  },
+  "turnovers": {
+   "2": [
+    2,
+    "F",
+    1
+   ],
+   "3": [
+    2,
+    "F",
+    6
+   ],
+   "4": [
+    6,
+    "F",
+    ""
+   ],
+   "5": [
+    4,
+    "F",
+    1
+   ],
+   "6": [
+    1,
+    "F",
+    2
+   ],
+   "7": [
+    1,
+    "",
+    1
+   ],
+   "8": [
+    3,
+    "",
+    ""
+   ],
+   "9": [
+    1,
+    "F",
+    ""
+   ],
+   "10": [
+    2,
+    "",
+    ""
+   ],
+   "11": [
+    7,
+    "",
+    5
+   ],
+   "12": [
+    2,
+    "F",
+    ""
+   ]
+  },
+  "run": {
+   "2": [
+    "+2",
+    ""
+   ],
+   "3": [
+    "+1",
+    "P"
+   ],
+   "4": [
+    "+1",
+    ""
+   ],
+   "5": [
+    "NC",
+    ""
+   ],
+   "6": [
+    "NC",
+    ""
+   ],
+   "7": [
+    "NC",
+    ""
+   ],
+   "8": [
+    "NC",
+    ""
+   ],
+   "9": [
+    "NC",
+    ""
+   ],
+   "10": [
+    "-1",
+    ""
+   ],
+   "11": [
+    "-2",
+    ""
+   ],
+   "12": [
+    "-2",
+    ""
+   ]
+  },
+  "pass_s": {
+   "2": [
+    "+1",
+    ""
+   ],
+   "3": [
+    "+1",
+    "P"
+   ],
+   "4": [
+    "NC",
+    ""
+   ],
+   "5": [
+    "-1",
+    ""
+   ],
+   "6": [
+    "-1",
+    "R"
+   ],
+   "7": [
+    "NC",
+    ""
+   ],
+   "8": [
+    "NC",
+    "R"
+   ],
+   "9": [
+    "-1",
+    ""
+   ],
+   "10": [
+    "-2",
+    ""
+   ],
+   "11": [
+    "-3",
+    "X"
+   ],
+   "12": [
+    "-3",
+    "R"
+   ]
+  },
+  "pass_m": {
+   "2": [
+    "-2",
+    ""
+   ],
+   "3": [
+    "-2",
+    "P"
+   ],
+   "4": [
+    "-1",
+    "X"
+   ],
+   "5": [
+    "-1",
+    "R"
+   ],
+   "6": [
+    "NC",
+    ""
+   ],
+   "7": [
+    "NC",
+    "R"
+   ],
+   "8": [
+    "+1",
+    ""
+   ],
+   "9": [
+    "+2",
+    "R"
+   ],
+   "10": [
+    "+2",
+    "X"
+   ],
+   "11": [
+    "+2",
+    ""
+   ],
+   "12": [
+    "+2",
+    ""
+   ]
+  },
+  "pass_l": {
+   "2": [
+    "+3",
+    ""
+   ],
+   "3": [
+    "+3",
+    "P"
+   ],
+   "4": [
+    "+3",
+    "R"
+   ],
+   "5": [
+    "+3",
+    "X"
+   ],
+   "6": [
+    "+2",
+    "R"
+   ],
+   "7": [
+    "+1",
+    "R"
+   ],
+   "8": [
+    "+1",
+    "X"
+   ],
+   "9": [
+    "NC",
+    ""
+   ],
+   "10": [
+    "-1",
+    "R"
+   ],
+   "11": [
+    "-1",
+    "R"
+   ],
+   "12": [
+    "-1",
+    ""
+   ]
+  }
+ },
+ "logo": "data:image/png;base64,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"
+}

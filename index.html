@@ -45,7 +45,7 @@ function start(){G={tm:[PICK[0],PICK[1]],sc:[0,0],q:1,clk:900,po:0,pos:0,dn:1,tg
 function spend(s){const c=G.clk,late=(G.q==2||G.q==4);if(late&&c<=180)s=20;else if(late&&c-s<180)s=c-180;G.clk=Math.max(0,c-s)}
 function flip(){G.po=1-G.po;G.pos=110-G.pos;G.dn=1;G.tg=10;G.hist=[]}
 function sc(i,p){G.sc[i]+=p;(G.sch=G.sch||[0,0])[i]=1}
-function xp(i){const K=tm(i).place_kicking,r=r2(i,'Convert kick',t=>K.convert[t].join(' / ')),a=K.convert[r][0],res=a=='-K2-'?K.convert[r2(i,'Convert, second column',t=>K.convert[t][1])][1]:a;
+function xp(i){const K=tm(i).place_kicking,r=r2(i,'Convert kick',t=>K.convert[t][0]),a=K.convert[r][0],res=a=='-K2-'?K.convert[r2(i,'Convert, second column',t=>K.convert[t][1])][1]:a;
  if(res=='GD'){sc(i,1);L('Convert is good (+1).')}else L('Convert no good.')}
 function td(i){sc(i,6);L(`TOUCHDOWN ${nm(i)}! (+6)`);xp(i);G.po=i;G.pos=0;G.ph='kick'}
 function adv(g){if(RY){const P=RY;RY=0;if(G.pos+g<110){const y=Math.min(P.yards,Math.floor((110-G.pos-g)/2));g+=y;L(`Penalty on defense: ${P.name}, ${y} yds added to the play.`)}}G.pos+=g;if(G.pos>110)return td(G.po);if(G.pos==110){G.pos=109;g--;L('Downed on the goal line: spotted at the one-yard line.')}
@@ -85,15 +85,15 @@ function away(d,rc,cd){const pk0=PK;PK=0;const k=G.po,r=1-k,land=G.pos+d,dep=lan
   if(n==1||n==15||n==16){const y=n==16?0:Math.min(P.yards,Math.floor((110-G.pos)/2));G.pos+=y;G.tg-=y;const fd=G.tg<=0||n>=15;if(fd){G.dn=1;G.tg=Math.min(10,110-G.pos)}G.hist=[];L(`Penalty on ${nm(r)}: ${P.name}. ${nm(k)} keeps the ball (${y} yds), ${fd?'first down':'replay the down'}.`);return}
   const y=Math.min(P.yards,Math.floor(Math.min(109,f)/2));if(cd==2){sc(k,1);L(`${nm(r)} concede the single (+1 for ${nm(k)}).`)}G.po=r;G.dn=1;G.tg=10;G.hist=[];G.pos=Math.max(1,Math.min(109,f)-y);L(`Penalty on ${nm(r)}: ${P.name}, ${y} yds from the final return spot. ${nm(r)} starts at its ${G.pos}.`);return}
  G.po=r;G.dn=1;G.tg=10;G.hist=[];G.pos=Math.max(1,Math.min(109,f));if(t_||f>=110)td(r);else if(fb)fum(G.pos);else if(pk){const P=PB.penalties[pk],y=Math.min(P.yards,Math.floor((110-G.pos)/2));G.pos+=y;L(`Penalty on ${nm(k)}: ${P.name}, ${y} yds from the final return spot. ${nm(r)} gets a first down at its ${G.pos}.`)}}
-function punt(){const P=O().punt_kickoff,rw=P.punt[r2(G.po,'Punt',t=>P.punt[t].join(' / '))];const e=rw[0]=='-K2-'?P.punt[r2(G.po,'Punt, second column',t=>P.punt[t][1])][1]:rw[0];let d=pr(e).n;if(pr(e).p){const n=PB.penalty_chart.rows[r2(G.po,'Penalty chart (punter)',t=>{const q=PB.penalty_chart.rows[t][4];return q+' '+PB.penalties[q].name})][4];if(n==2||n==4||n==8){pen('o',4,n);return}PK=n}
+function punt(){const P=O().punt_kickoff,rw=P.punt[r2(G.po,'Punt',t=>P.punt[t][0])];const e=rw[0]=='-K2-'?P.punt[r2(G.po,'Punt, second column',t=>P.punt[t][1])][1]:rw[0];let d=pr(e).n;if(pr(e).p){const n=PB.penalty_chart.rows[r2(G.po,'Penalty chart (punter)',t=>{const q=PB.penalty_chart.rows[t][4];return q+' '+PB.penalties[q].name})][4];if(n==2||n==4||n==8){pen('o',4,n);return}PK=n}
  if(rw[2]=='OoB')d-=5;away(d,rw[2])}
 const fgCol=()=>{const d=110-G.pos;return d<=20?0:d<=30?1:d<=40?2:d<=50?3:d<=55?4:5};
 const fgOK=()=>110-G.pos<=60&&O().place_kicking.fg[2].split(' ')[fgCol()]!='-';
-function fg(){const rw=O().place_kicking.fg[r2(G.po,'Field goal',t=>O().place_kicking.fg[t])].split(' '),c=rw[fgCol()];
+function fg(){const rw=O().place_kicking.fg[r2(G.po,'Field goal',t=>O().place_kicking.fg[t].split(' ')[fgCol()])].split(' '),c=rw[fgCol()];
  if(c=='GD'){sc(G.po,3);L('Field goal is GOOD (+3).');G.ph='kick';return}
  if(c=='SG'){sc(G.po,1);L('Single point (+1).');G.ph='kick';return}
  L('Field goal no good.');away(pr(c).n,/[AB]$/.test(c)?c.slice(-1):rw[6])}
-function ko(){const k=G.po,r=1-k,row=tm(k).punt_kickoff.kickoff[r2(k,'Kickoff',t=>tm(k).punt_kickoff.kickoff[t].join(' / '))],yl=+row[1]+(G.sf?20:0),R=tm(r).kickoff_return,
+function ko(){const k=G.po,r=1-k,row=tm(k).punt_kickoff.kickoff[r2(k,'Kickoff',t=>tm(k).punt_kickoff.kickoff[t].slice(0,3).join(' / '))],yl=+row[1]+(G.sf?20:0),R=tm(r).kickoff_return,
  pl=R.selector[r2(r,'Kick returner',t=>R.selector[t])],v=R[pl][r2(r,pl+' return',t=>R[pl][t][row[2]=='A'?0:1])][row[2]=='A'?0:1],x=pr(v);G.sf=0;
  L(`${nm(k)} kicks off ${row[0]} yds to the ${yl}. ${pl} returns ${x.n}.`);
  G.po=r;G.dn=1;G.tg=10;G.hist=[];G.ph='def';G.ds=null;const f=yl+x.n;if(x.td)td(r);else if(f<=0){sc(k,1);L(`Returner stopped in the end zone: single point for ${nm(k)}; ${nm(r)} starts at its 35.`);G.pos=35}else if(!(x.f&&fum(Math.min(109,f))))G.pos=Math.min(109,f)}

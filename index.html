@@ -633,10 +633,13 @@ let _ll=null;{const r1=window.render;window.render=function(){const tp=document.
 
 /* ---- teams kept on the site (teams/ folder of the repo) ---- */
 async function loadRepoTeams(){if(!window.SACPF_NET)return;let list;try{const r=await fetch('/teams.json',{cache:'no-store'});if(!r.ok)return;list=await r.json()}catch(e){return}
- let n=0;for(const it of list||[]){const j=it&&it.team;try{if(!j||checkTeam(j).length)continue;
+ let n=0;const bad=[],seen={};for(const it of list||[]){const j=it&&it.team,f=(it&&it.file)||'?';try{if(!j){bad.push(f+': the file could not be read (check it is valid JSON)');continue}
+  const pr=checkTeam(j);if(pr.length){bad.push(f+': '+pr[0]+(pr.length>1?' (+'+(pr.length-1)+' more problems)':''));continue}
   const k=Object.keys(T).find(x=>NM[x]==j.team&&YR[x]==j.year)||(j.year+'_'+(j.team||'team').toLowerCase().replace(/[^a-z0-9]+/g,'_'));
-  if(IMP[k])continue;                         // a copy saved in this browser wins (it may hold custom players)
-  addTeam(k,j);if(LOGOS[k])LOGO[k]=LOGOS[k];n++}catch(e){}}
- if(n&&!G)render()}
+  if(seen[k]){bad.push(f+': same team and year as '+seen[k]+', so only one of them shows');continue}
+  seen[k]=f;if(IMP[k]){bad.push(f+': not loaded because a copy of '+(j.year||'')+' '+j.team+' saved in this browser is used instead');continue}
+  addTeam(k,j);if(LOGOS[k])LOGO[k]=LOGOS[k];n++}catch(e){bad.push(f+': '+e.message)}}
+ if(n&&!G)render();
+ if(bad.length){console.warn('Team files not loaded:\n'+bad.join('\n'));const d=document.createElement('div');d.style.cssText='position:fixed;left:8px;right:8px;bottom:8px;z-index:99;background:#fff3cd;border:1px solid #c9a227;padding:8px 10px;font:13px sans-serif;max-height:40vh;overflow:auto;color:#000';d.innerHTML='<b>'+bad.length+' team file(s) in the teams folder were not added:</b><ul style="margin:4px 0 4px 18px;padding:0">'+bad.map(x=>'<li>'+x.replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))+'</li>').join('')+'</ul><button onclick="this.parentNode.remove()">Close</button>';document.body.appendChild(d)}}
 loadRepoTeams();
 </script></body></html>

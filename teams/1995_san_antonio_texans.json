@@ -1,0 +1,2530 @@
+{
+ "team": "San Antonio Texans",
+ "year": 1995,
+ "short": "TEXANS",
+ "qb_passing": {
+  "Archer": {
+   "num": "QB1",
+   "rating": -2,
+   "imp": "",
+   "name": "David Archer",
+   "passing": {
+    "2": [
+     "",
+     "",
+     "",
+     "",
+     ""
+    ],
+    "3": [
+     "C",
+     "C",
+     "",
+     "",
+     "C"
+    ],
+    "4": [
+     "",
+     "",
+     "C",
+     "C",
+     "C"
+    ],
+    "5": [
+     "CP",
+     "C",
+     "CP",
+     "C",
+     "C"
+    ],
+    "6": [
+     "C",
+     "C",
+     "C",
+     "",
+     ""
+    ],
+    "7": [
+     "C",
+     "C",
+     "CN",
+     "C",
+     ""
+    ],
+    "8": [
+     "C",
+     "C",
+     "",
+     "",
+     ""
+    ],
+    "9": [
+     "C",
+     "",
+     "",
+     "",
+     ""
+    ],
+    "10": [
+     "",
+     "",
+     "F",
+     "",
+     ""
+    ],
+    "11": [
+     "",
+     "",
+     "",
+     "P",
+     "P"
+    ],
+    "12": [
+     "",
+     "P",
+     "",
+     "",
+     ""
+    ]
+   },
+   "rush": {
+    "2": [
+     "RX",
+     "RX",
+     "RX",
+     "RUN"
+    ],
+    "3": [
+     "RX",
+     "RX",
+     "RX",
+     "-5"
+    ],
+    "4": [
+     "RX",
+     "RX",
+     "RX",
+     "-6"
+    ],
+    "5": [
+     "",
+     "RX",
+     "RX",
+     "-5"
+    ],
+    "6": [
+     "",
+     "",
+     "RX",
+     "-9"
+    ],
+    "7": [
+     "",
+     "",
+     "",
+     "-6"
+    ],
+    "8": [
+     "",
+     "R",
+     "R",
+     "-8"
+    ],
+    "9": [
+     "R",
+     "R",
+     "R",
+     "-11"
+    ],
+    "10": [
+     "RX",
+     "R",
+     "R",
+     "-10"
+    ],
+    "11": [
+     "R",
+     "RX",
+     "R",
+     "-9"
+    ],
+    "12": [
+     "R",
+     "R",
+     "RX",
+     "RUN"
+    ]
+   }
+  },
+  "Kemp": {
+   "num": "QB2",
+   "rating": -5,
+   "imp": "",
+   "name": "Jimmy Kemp",
+   "passing": {
+    "2": [
+     "",
+     "P",
+     "",
+     "",
+     "P"
+    ],
+    "3": [
+     "",
+     "P",
+     "",
+     "P",
+     ""
+    ],
+    "4": [
+     "",
+     "",
+     "",
+     "",
+     ""
+    ],
+    "5": [
+     "",
+     "C",
+     "",
+     "",
+     ""
+    ],
+    "6": [
+     "C",
+     "",
+     "C",
+     "",
+     "F"
+    ],
+    "7": [
+     "C",
+     "C",
+     "CN",
+     "",
+     ""
+    ],
+    "8": [
+     "CP",
+     "C",
+     "C",
+     "C",
+     "C"
+    ],
+    "9": [
+     "C",
+     "C",
+     "",
+     "CP",
+     ""
+    ],
+    "10": [
+     "C",
+     "",
+     "",
+     "C",
+     "C"
+    ],
+    "11": [
+     "",
+     "F",
+     "F",
+     "",
+     ""
+    ],
+    "12": [
+     "",
+     "F",
+     "F",
+     "",
+     ""
+    ]
+   },
+   "rush": {
+    "2": [
+     "RX",
+     "RX",
+     "RX",
+     "-6"
+    ],
+    "3": [
+     "RX",
+     "RX",
+     "RX",
+     "-11"
+    ],
+    "4": [
+     "RX",
+     "RX",
+     "RX",
+     "-5"
+    ],
+    "5": [
+     "RX",
+     "RX",
+     "RX",
+     "-7"
+    ],
+    "6": [
+     "RX",
+     "RX",
+     "RX",
+     "-8"
+    ],
+    "7": [
+     "X",
+     "RX",
+     "RX",
+     "-9"
+    ],
+    "8": [
+     "X",
+     "X",
+     "RX",
+     "-6"
+    ],
+    "9": [
+     "",
+     "X",
+     "RX",
+     "RUN"
+    ],
+    "10": [
+     "",
+     "",
+     "X",
+     "-9"
+    ],
+    "11": [
+     "",
+     "X",
+     "RX",
+     "RUN"
+    ],
+    "12": [
+     "RX",
+     "RX",
+     "X",
+     "-10F"
+    ]
+   }
+  },
+  "Jordan": {
+   "num": "QB3",
+   "rating": -6,
+   "imp": "",
+   "name": "Todd Jordan",
+   "passing": {
+    "2": [
+     "C",
+     "",
+     "",
+     "",
+     "C"
+    ],
+    "3": [
+     "C",
+     "C",
+     "",
+     "C",
+     "C"
+    ],
+    "4": [
+     "",
+     "CP",
+     "",
+     "C",
+     "CP"
+    ],
+    "5": [
+     "CP",
+     "C",
+     "",
+     "C",
+     ""
+    ],
+    "6": [
+     "C",
+     "C",
+     "C",
+     "",
+     ""
+    ],
+    "7": [
+     "C",
+     "",
+     "CN",
+     "",
+     ""
+    ],
+    "8": [
+     "",
+     "",
+     "",
+     "",
+     ""
+    ],
+    "9": [
+     "",
+     "",
+     "",
+     "",
+     ""
+    ],
+    "10": [
+     "",
+     "",
+     "P",
+     "",
+     ""
+    ],
+    "11": [
+     "",
+     "",
+     "",
+     "P",
+     ""
+    ],
+    "12": [
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   },
+   "rush": {
+    "2": [
+     "RX",
+     "RX",
+     "RX",
+     "RUN"
+    ],
+    "3": [
+     "RX",
+     "RX",
+     "RX",
+     "-10"
+    ],
+    "4": [
+     "RX",
+     "RX",
+     "RX",
+     "-6"
+    ],
+    "5": [
+     "RX",
+     "RX",
+     "RX",
+     "-6"
+    ],
+    "6": [
+     "RX",
+     "RX",
+     "RX",
+     "-8"
+    ],
+    "7": [
+     "RX",
+     "RX",
+     "RX",
+     "-11"
+    ],
+    "8": [
+     "RX",
+     "RX",
+     "RX",
+     "-4"
+    ],
+    "9": [
+     "RX",
+     "RX",
+     "RX",
+     "-8"
+    ],
+    "10": [
+     "RX",
+     "RX",
+     "RX",
+     "-5"
+    ],
+    "11": [
+     "RX",
+     "RX",
+     "RX",
+     "-11"
+    ],
+    "12": [
+     "RX",
+     "RX",
+     "RX",
+     "-13"
+    ]
+   }
+  }
+ },
+ "qb_running": {
+  "Archer": {
+   "2": [
+    "0",
+    "1",
+    "4",
+    "7",
+    "8F"
+   ],
+   "3": [
+    "2",
+    "2",
+    "2",
+    "3",
+    "3"
+   ],
+   "4": [
+    "-3",
+    "-3",
+    "-3",
+    "-2",
+    "-1"
+   ],
+   "5": [
+    "2",
+    "2",
+    "2",
+    "2",
+    "2P"
+   ],
+   "6": [
+    "1",
+    "2",
+    "2",
+    "3",
+    "3"
+   ],
+   "7": [
+    "3",
+    "3",
+    "4N",
+    "4A",
+    "5"
+   ],
+   "8": [
+    "2",
+    "2P",
+    "2",
+    "3",
+    "4"
+   ],
+   "9": [
+    "-1",
+    "0",
+    "1",
+    "2",
+    "2"
+   ],
+   "10": [
+    "-1",
+    "1",
+    "2",
+    "4",
+    "6"
+   ],
+   "11": [
+    "-2",
+    "-2",
+    "-2",
+    "-1",
+    "0"
+   ],
+   "12": [
+    "4",
+    "6",
+    "9",
+    "11",
+    "15"
+   ]
+  },
+  "Kemp": {
+   "2": [
+    "1",
+    "2",
+    "3",
+    "5",
+    "8F"
+   ],
+   "3": [
+    "0",
+    "0",
+    "1",
+    "2",
+    "2"
+   ],
+   "4": [
+    "-1",
+    "-1",
+    "-1",
+    "0",
+    "0"
+   ],
+   "5": [
+    "0",
+    "0",
+    "0",
+    "1",
+    "1"
+   ],
+   "6": [
+    "3",
+    "4",
+    "5",
+    "5",
+    "5P"
+   ],
+   "7": [
+    "4",
+    "5",
+    "6N",
+    "8A",
+    "8"
+   ],
+   "8": [
+    "1",
+    "2",
+    "3",
+    "3",
+    "4"
+   ],
+   "9": [
+    "0",
+    "1",
+    "1",
+    "1",
+    "2"
+   ],
+   "10": [
+    "-1",
+    "0P",
+    "0",
+    "0",
+    "1"
+   ],
+   "11": [
+    "-3",
+    "-3",
+    "-3",
+    "-2",
+    "-1"
+   ],
+   "12": [
+    "8P",
+    "11",
+    "13",
+    "18",
+    "23"
+   ]
+  },
+  "Jordan": {
+   "2": [
+    "0",
+    "2",
+    "3P",
+    "3",
+    "3"
+   ],
+   "3": [
+    "1",
+    "1",
+    "2",
+    "4",
+    "4"
+   ],
+   "4": [
+    "2P",
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "5": [
+    "-1",
+    "-1",
+    "-1",
+    "-1",
+    "-1"
+   ],
+   "6": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "4"
+   ],
+   "7": [
+    "0",
+    "1",
+    "1N",
+    "2A",
+    "2"
+   ],
+   "8": [
+    "2",
+    "3",
+    "4",
+    "5",
+    "5"
+   ],
+   "9": [
+    "-2",
+    "-2",
+    "-1",
+    "-1",
+    "-1"
+   ],
+   "10": [
+    "-3P",
+    "-3",
+    "-3",
+    "-3",
+    "-3"
+   ],
+   "11": [
+    "1",
+    "2",
+    "3",
+    "5",
+    "6"
+   ],
+   "12": [
+    "2",
+    "4",
+    "5",
+    "6P",
+    "10"
+   ]
+  }
+ },
+ "backs": {
+  "Saunders": {
+   "num": "RB1",
+   "pos": "HB",
+   "rating": -6,
+   "imp": "",
+   "name": "Mike Saunders",
+   "run": {
+    "2": [
+     "7",
+     "8",
+     "8",
+     "9",
+     "9"
+    ],
+    "3": [
+     "10",
+     "11",
+     "12",
+     "13",
+     "15P"
+    ],
+    "4": [
+     "-2",
+     "-1",
+     "-1",
+     "-1",
+     "1"
+    ],
+    "5": [
+     "-1",
+     "-1",
+     "-1",
+     "0",
+     "0P"
+    ],
+    "6": [
+     "-2",
+     "0",
+     "1",
+     "3",
+     "4"
+    ],
+    "7": [
+     "5",
+     "6",
+     "7N",
+     "8A",
+     "8"
+    ],
+    "8": [
+     "4",
+     "7",
+     "8",
+     "9",
+     "10"
+    ],
+    "9": [
+     "2",
+     "4",
+     "6F",
+     "7",
+     "9"
+    ],
+    "10": [
+     "7P",
+     "8",
+     "11",
+     "15",
+     "19"
+    ],
+    "11": [
+     "-1",
+     "-1",
+     "-1",
+     "0",
+     "1"
+    ],
+    "12": [
+     "11",
+     "14",
+     "19",
+     "22",
+     "45"
+    ]
+   },
+   "rec": {
+    "2": [
+     "10*",
+     "20",
+     ""
+    ],
+    "3": [
+     "15",
+     "14",
+     ""
+    ],
+    "4": [
+     "9",
+     "8",
+     ""
+    ],
+    "5": [
+     "6",
+     "7",
+     ""
+    ],
+    "6": [
+     "4",
+     "13",
+     ""
+    ],
+    "7": [
+     "-1",
+     "12",
+     ""
+    ],
+    "8": [
+     "0*",
+     "9",
+     ""
+    ],
+    "9": [
+     "5*",
+     "18",
+     ""
+    ],
+    "10": [
+     "3",
+     "10",
+     ""
+    ],
+    "11": [
+     "1",
+     "11",
+     ""
+    ],
+    "12": [
+     "8F",
+     "60",
+     ""
+    ]
+   }
+  },
+  "Mills": {
+   "num": "RB2",
+   "pos": "FB",
+   "rating": 5,
+   "imp": "",
+   "name": "Tony Mills",
+   "run": {
+    "2": [
+     "-1",
+     "1",
+     "3",
+     "4",
+     "6"
+    ],
+    "3": [
+     "2",
+     "4",
+     "6",
+     "8",
+     "9"
+    ],
+    "4": [
+     "-2",
+     "-2",
+     "-2",
+     "-1",
+     "0"
+    ],
+    "5": [
+     "5",
+     "6",
+     "7",
+     "8",
+     "9P"
+    ],
+    "6": [
+     "1",
+     "3",
+     "5",
+     "6",
+     "7P"
+    ],
+    "7": [
+     "6",
+     "6",
+     "7N",
+     "9A",
+     "11"
+    ],
+    "8": [
+     "4",
+     "5",
+     "6",
+     "8",
+     "10"
+    ],
+    "9": [
+     "1",
+     "2F",
+     "2",
+     "2",
+     "2"
+    ],
+    "10": [
+     "-1",
+     "-1",
+     "-1",
+     "0",
+     "1"
+    ],
+    "11": [
+     "9",
+     "9",
+     "11",
+     "11",
+     "12"
+    ],
+    "12": [
+     "11",
+     "14",
+     "16",
+     "22",
+     "30"
+    ]
+   },
+   "rec": {
+    "2": [
+     "8",
+     "20",
+     ""
+    ],
+    "3": [
+     "12",
+     "14",
+     ""
+    ],
+    "4": [
+     "6",
+     "21",
+     ""
+    ],
+    "5": [
+     "10",
+     "11",
+     ""
+    ],
+    "6": [
+     "5*",
+     "14",
+     ""
+    ],
+    "7": [
+     "6",
+     "8",
+     ""
+    ],
+    "8": [
+     "-2*",
+     "17",
+     ""
+    ],
+    "9": [
+     "9",
+     "13",
+     ""
+    ],
+    "10": [
+     "2",
+     "9",
+     ""
+    ],
+    "11": [
+     "5",
+     "20",
+     ""
+    ],
+    "12": [
+     "3F",
+     "54",
+     ""
+    ]
+   }
+  },
+  "Burse": {
+   "num": "RB3",
+   "pos": "HB/FB",
+   "rating": -2,
+   "imp": "",
+   "name": "Tony Burse",
+   "run": {
+    "2": [
+     "-2",
+     "0",
+     "2",
+     "3",
+     "5"
+    ],
+    "3": [
+     "4",
+     "5",
+     "5",
+     "7",
+     "8"
+    ],
+    "4": [
+     "-3",
+     "-3",
+     "-3",
+     "-2",
+     "-1"
+    ],
+    "5": [
+     "-2",
+     "-1",
+     "1",
+     "2",
+     "2P"
+    ],
+    "6": [
+     "0",
+     "2",
+     "4",
+     "6",
+     "8"
+    ],
+    "7": [
+     "8",
+     "8",
+     "8N",
+     "9A",
+     "11"
+    ],
+    "8": [
+     "4P",
+     "5",
+     "7",
+     "8",
+     "10"
+    ],
+    "9": [
+     "-1",
+     "2F",
+     "3",
+     "4",
+     "5"
+    ],
+    "10": [
+     "8",
+     "9",
+     "12",
+     "15",
+     "16"
+    ],
+    "11": [
+     "-2",
+     "-2",
+     "-2",
+     "-1",
+     "0"
+    ],
+    "12": [
+     "11",
+     "14",
+     "16P",
+     "18",
+     "40"
+    ]
+   },
+   "rec": {
+    "2": [
+     "11",
+     "11",
+     ""
+    ],
+    "3": [
+     "4",
+     "17",
+     ""
+    ],
+    "4": [
+     "2",
+     "9",
+     ""
+    ],
+    "5": [
+     "3*",
+     "10",
+     ""
+    ],
+    "6": [
+     "6*",
+     "11",
+     ""
+    ],
+    "7": [
+     "5",
+     "15",
+     ""
+    ],
+    "8": [
+     "-2",
+     "7",
+     ""
+    ],
+    "9": [
+     "7",
+     "15",
+     ""
+    ],
+    "10": [
+     "1",
+     "8",
+     ""
+    ],
+    "11": [
+     "4",
+     "18",
+     ""
+    ],
+    "12": [
+     "9*",
+     "43",
+     ""
+    ]
+   }
+  },
+  "Dingle": {
+   "num": "RB4",
+   "pos": "HB/FB",
+   "rating": 4,
+   "imp": "",
+   "name": "Mike Dingle",
+   "run": {
+    "2": [
+     "1",
+     "4",
+     "4",
+     "5",
+     "6"
+    ],
+    "3": [
+     "-2",
+     "-2",
+     "-1",
+     "-1",
+     "0"
+    ],
+    "4": [
+     "-1",
+     "-1",
+     "-1",
+     "0",
+     "1"
+    ],
+    "5": [
+     "1",
+     "1",
+     "2",
+     "2",
+     "3"
+    ],
+    "6": [
+     "0",
+     "0",
+     "1",
+     "1",
+     "2P"
+    ],
+    "7": [
+     "3",
+     "3",
+     "3N",
+     "4A",
+     "4"
+    ],
+    "8": [
+     "0",
+     "0",
+     "0",
+     "0",
+     "0"
+    ],
+    "9": [
+     "1P",
+     "2",
+     "3",
+     "4",
+     "5"
+    ],
+    "10": [
+     "-2",
+     "0",
+     "0",
+     "1",
+     "1"
+    ],
+    "11": [
+     "-2",
+     "-2",
+     "-2",
+     "-1",
+     "0"
+    ],
+    "12": [
+     "2",
+     "2",
+     "2",
+     "3",
+     "4"
+    ]
+   },
+   "rec": {
+    "2": [
+     "11",
+     "11",
+     ""
+    ],
+    "3": [
+     "8",
+     "14",
+     ""
+    ],
+    "4": [
+     "6*",
+     "16",
+     ""
+    ],
+    "5": [
+     "7",
+     "11",
+     ""
+    ],
+    "6": [
+     "5",
+     "8",
+     ""
+    ],
+    "7": [
+     "4",
+     "7",
+     ""
+    ],
+    "8": [
+     "-1",
+     "13",
+     ""
+    ],
+    "9": [
+     "8*",
+     "10",
+     ""
+    ],
+    "10": [
+     "1*",
+     "9",
+     ""
+    ],
+    "11": [
+     "10",
+     "16",
+     ""
+    ],
+    "12": [
+     "5",
+     "44",
+     ""
+    ]
+   }
+  },
+  "Jackson": {
+   "num": "RB5",
+   "pos": "HB/FB",
+   "rating": -6,
+   "imp": "Import",
+   "name": "Tony Jackson",
+   "run": {
+    "2": [
+     "2",
+     "2",
+     "3",
+     "6",
+     "7"
+    ],
+    "3": [
+     "0",
+     "0",
+     "1",
+     "2",
+     "4"
+    ],
+    "4": [
+     "-1",
+     "-1",
+     "-1",
+     "0",
+     "1"
+    ],
+    "5": [
+     "4",
+     "5",
+     "6",
+     "7",
+     "7P"
+    ],
+    "6": [
+     "0",
+     "3",
+     "4",
+     "6",
+     "9"
+    ],
+    "7": [
+     "4",
+     "7",
+     "8N",
+     "8A",
+     "11"
+    ],
+    "8": [
+     "6",
+     "6",
+     "6",
+     "7",
+     "7"
+    ],
+    "9": [
+     "0",
+     "0",
+     "0",
+     "1",
+     "1P"
+    ],
+    "10": [
+     "1P",
+     "2",
+     "4",
+     "4",
+     "6"
+    ],
+    "11": [
+     "-1",
+     "-1",
+     "-1",
+     "0",
+     "1"
+    ],
+    "12": [
+     "5",
+     "8",
+     "9",
+     "10",
+     "11"
+    ]
+   },
+   "rec": {
+    "2": [
+     "16*",
+     "",
+     ""
+    ],
+    "3": [
+     "5*",
+     "",
+     ""
+    ],
+    "4": [
+     "4*",
+     "",
+     ""
+    ],
+    "5": [
+     "0",
+     "",
+     ""
+    ],
+    "6": [
+     "3",
+     "",
+     ""
+    ],
+    "7": [
+     "-1",
+     "",
+     ""
+    ],
+    "8": [
+     "4",
+     "",
+     ""
+    ],
+    "9": [
+     "1",
+     "",
+     ""
+    ],
+    "10": [
+     "2",
+     "",
+     ""
+    ],
+    "11": [
+     "9*",
+     "",
+     ""
+    ],
+    "12": [
+     "11",
+     "",
+     ""
+    ]
+   }
+  }
+ },
+ "receivers": {
+  "Stock": {
+   "pos": "WB",
+   "rating": -6,
+   "imp": "Import",
+   "name": "Mark Stock",
+   "rec": {
+    "2": [
+     "15",
+     "20",
+     "34"
+    ],
+    "3": [
+     "11",
+     "8",
+     "22"
+    ],
+    "4": [
+     "4",
+     "12",
+     "28"
+    ],
+    "5": [
+     "3",
+     "10",
+     "32"
+    ],
+    "6": [
+     "1",
+     "11",
+     "27"
+    ],
+    "7": [
+     "7",
+     "22",
+     "36"
+    ],
+    "8": [
+     "2",
+     "10",
+     "29"
+    ],
+    "9": [
+     "-1",
+     "19",
+     "44"
+    ],
+    "10": [
+     "8",
+     "18",
+     "40"
+    ],
+    "11": [
+     "6",
+     "10F",
+     "34"
+    ],
+    "12": [
+     "13",
+     "17",
+     "45"
+    ]
+   }
+  },
+  "Wise": {
+   "pos": "TE",
+   "rating": 1,
+   "imp": "Import",
+   "name": "Myron Wise",
+   "rec": {
+    "2": [
+     "13",
+     "21",
+     "23"
+    ],
+    "3": [
+     "1",
+     "8",
+     "61"
+    ],
+    "4": [
+     "-2",
+     "16",
+     "46"
+    ],
+    "5": [
+     "2",
+     "12",
+     "41"
+    ],
+    "6": [
+     "10",
+     "14",
+     "35"
+    ],
+    "7": [
+     "3",
+     "11",
+     "43"
+    ],
+    "8": [
+     "5",
+     "17",
+     "38"
+    ],
+    "9": [
+     "9",
+     "13",
+     "29"
+    ],
+    "10": [
+     "7",
+     "9",
+     "34"
+    ],
+    "11": [
+     "2",
+     "18",
+     "57"
+    ],
+    "12": [
+     "14",
+     "19",
+     "TD"
+    ]
+   }
+  },
+  "Kralik": {
+   "pos": "SE",
+   "rating": 3,
+   "imp": "Import",
+   "name": "Joe Kralik",
+   "rec": {
+    "2": [
+     "19",
+     "12",
+     "55"
+    ],
+    "3": [
+     "1",
+     "18",
+     "45"
+    ],
+    "4": [
+     "9",
+     "8",
+     "71"
+    ],
+    "5": [
+     "0",
+     "17",
+     "28"
+    ],
+    "6": [
+     "4",
+     "11",
+     "34"
+    ],
+    "7": [
+     "11",
+     "9",
+     "26"
+    ],
+    "8": [
+     "3",
+     "20",
+     "30"
+    ],
+    "9": [
+     "7",
+     "19",
+     "46"
+    ],
+    "10": [
+     "2",
+     "10",
+     "67"
+    ],
+    "11": [
+     "-2",
+     "14",
+     "28"
+    ],
+    "12": [
+     "13",
+     "21",
+     "TD"
+    ]
+   }
+  },
+  "Hess": {
+   "pos": "FL",
+   "rating": -6,
+   "imp": "Import",
+   "name": "Billy Hess",
+   "rec": {
+    "2": [
+     "18",
+     "8",
+     "36"
+    ],
+    "3": [
+     "7",
+     "21",
+     "32"
+    ],
+    "4": [
+     "3",
+     "9",
+     "42"
+    ],
+    "5": [
+     "6",
+     "16",
+     "33"
+    ],
+    "6": [
+     "2",
+     "17",
+     "29"
+    ],
+    "7": [
+     "1",
+     "12",
+     "28"
+    ],
+    "8": [
+     "11",
+     "18",
+     "32"
+    ],
+    "9": [
+     "4",
+     "16",
+     "26"
+    ],
+    "10": [
+     "0",
+     "17",
+     "38"
+    ],
+    "11": [
+     "-1",
+     "13",
+     "34"
+    ],
+    "12": [
+     "9",
+     "10",
+     "40"
+    ]
+   }
+  },
+  "Taylor": {
+   "pos": "WB/TE",
+   "rating": 3,
+   "imp": "Import",
+   "name": "Kitrick Taylor",
+   "rec": {
+    "2": [
+     "10",
+     "21",
+     ""
+    ],
+    "3": [
+     "3",
+     "15",
+     ""
+    ],
+    "4": [
+     "7",
+     "9",
+     ""
+    ],
+    "5": [
+     "9",
+     "11",
+     ""
+    ],
+    "6": [
+     "6",
+     "15",
+     ""
+    ],
+    "7": [
+     "8",
+     "10",
+     ""
+    ],
+    "8": [
+     "-2",
+     "14",
+     ""
+    ],
+    "9": [
+     "0",
+     "16",
+     ""
+    ],
+    "10": [
+     "5",
+     "19",
+     ""
+    ],
+    "11": [
+     "1",
+     "8",
+     ""
+    ],
+    "12": [
+     "16",
+     "23",
+     ""
+    ]
+   }
+  },
+  "Lucas": {
+   "pos": "SE/WB/TE/FL",
+   "rating": 5,
+   "imp": "Import",
+   "name": "David Lucas",
+   "rec": {
+    "2": [
+     "12",
+     "9",
+     "41"
+    ],
+    "3": [
+     "6",
+     "8",
+     "24"
+    ],
+    "4": [
+     "2",
+     "15",
+     "34"
+    ],
+    "5": [
+     "4",
+     "13",
+     "33F"
+    ],
+    "6": [
+     "0",
+     "11F",
+     "22F"
+    ],
+    "7": [
+     "8F",
+     "12F",
+     "29"
+    ],
+    "8": [
+     "3",
+     "10",
+     "32"
+    ],
+    "9": [
+     "9F",
+     "22",
+     "31"
+    ],
+    "10": [
+     "-1",
+     "17",
+     "29"
+    ],
+    "11": [
+     "5",
+     "12",
+     "23"
+    ],
+    "12": [
+     "17",
+     "21",
+     "28"
+    ]
+   }
+  },
+  "Gamble": {
+   "pos": "SE/FL",
+   "rating": 3,
+   "imp": "Import",
+   "name": "David Gamble",
+   "rec": {
+    "2": [
+     "17",
+     "14",
+     "43"
+    ],
+    "3": [
+     "0",
+     "22",
+     "36"
+    ],
+    "4": [
+     "-2",
+     "16",
+     "29"
+    ],
+    "5": [
+     "12",
+     "13",
+     "26"
+    ],
+    "6": [
+     "-1",
+     "10",
+     "30"
+    ],
+    "7": [
+     "8",
+     "9",
+     "31"
+    ],
+    "8": [
+     "1",
+     "17",
+     "29"
+    ],
+    "9": [
+     "3",
+     "19",
+     "34"
+    ],
+    "10": [
+     "9",
+     "17",
+     "32"
+    ],
+    "11": [
+     "5",
+     "11",
+     "39"
+    ],
+    "12": [
+     "15",
+     "16",
+     "49"
+    ]
+   }
+  }
+ },
+ "place_kicking": {
+  "name": "Roman Anderso",
+  "fg_cols": [
+   "1-20",
+   "21-30",
+   "31-40",
+   "41-50",
+   "51-55",
+   "56-60"
+  ],
+  "fg": {
+   "2": "GD GD GD GD GD - -",
+   "3": "GD GD GD GD GD - -",
+   "4": "GD GD GD GD 52B - -",
+   "5": "GD GD GD GD 48B - -",
+   "6": "GD GD GD GD 55B - -",
+   "7": "GD GD GD GD 56A - -",
+   "8": "GD GD GD GD 49A - -",
+   "9": "GD GD GD 52B 54B - -",
+   "10": "GD GD 49B 50A GD - -",
+   "11": "GD GD 52A 46B 46A - -",
+   "12": "SG 45B GD GD GD - -"
+  },
+  "convert": {
+   "2": [
+    "WD",
+    ""
+   ],
+   "3": [
+    "GD",
+    ""
+   ],
+   "4": [
+    "GD",
+    ""
+   ],
+   "5": [
+    "GD",
+    ""
+   ],
+   "6": [
+    "GD",
+    ""
+   ],
+   "7": [
+    "GD",
+    ""
+   ],
+   "8": [
+    "GD",
+    ""
+   ],
+   "9": [
+    "GD",
+    ""
+   ],
+   "10": [
+    "GD",
+    ""
+   ],
+   "11": [
+    "GD",
+    ""
+   ],
+   "12": [
+    "GD",
+    ""
+   ]
+  }
+ },
+ "punt_kickoff": {
+  "name": "Todd Jordan",
+  "punter": "Todd Jordan",
+  "kicker": "Roman Anderson",
+  "punt": {
+   "2": [
+    "32",
+    "68",
+    "A"
+   ],
+   "3": [
+    "36",
+    "54P",
+    "OoB"
+   ],
+   "4": [
+    "38",
+    "50",
+    "B"
+   ],
+   "5": [
+    "-K2-",
+    "49P",
+    "B"
+   ],
+   "6": [
+    "-K2-",
+    "59",
+    "A"
+   ],
+   "7": [
+    "40",
+    "50",
+    "A"
+   ],
+   "8": [
+    "39",
+    "48P",
+    "B"
+   ],
+   "9": [
+    "38",
+    "49",
+    "B"
+   ],
+   "10": [
+    "36",
+    "46",
+    "B"
+   ],
+   "11": [
+    "33",
+    "60P",
+    "A"
+   ],
+   "12": [
+    "31",
+    "62",
+    "A"
+   ]
+  },
+  "kickoff": {
+   "2": [
+    "80",
+    "-15",
+    "A",
+    "20R"
+   ],
+   "3": [
+    "61",
+    "4",
+    "B",
+    "16"
+   ],
+   "4": [
+    "52",
+    "13",
+    "B",
+    "17R"
+   ],
+   "5": [
+    "47",
+    "18",
+    "A",
+    "13"
+   ],
+   "6": [
+    "54",
+    "11",
+    "A",
+    "12"
+   ],
+   "7": [
+    "53",
+    "12",
+    "B",
+    "16"
+   ],
+   "8": [
+    "52",
+    "13",
+    "B",
+    "14"
+   ],
+   "9": [
+    "55",
+    "10",
+    "A",
+    "16"
+   ],
+   "10": [
+    "47",
+    "18",
+    "B",
+    "17"
+   ],
+   "11": [
+    "54",
+    "11",
+    "A",
+    "18"
+   ],
+   "12": [
+    "70",
+    "-5",
+    "A",
+    "15R"
+   ]
+  }
+ },
+ "kickoff_return": {
+  "selector": {
+   "2": "Lucas",
+   "3": "Lucas",
+   "4": "Lucas",
+   "5": "Lucas",
+   "6": "Lucas",
+   "7": "Lucas",
+   "8": "Gates",
+   "9": "Gates",
+   "10": "Gates",
+   "11": "Lucas",
+   "12": "Lucas"
+  },
+  "Lucas": {
+   "2": [
+    "15F",
+    "46"
+   ],
+   "3": [
+    "19",
+    "32"
+   ],
+   "4": [
+    "27",
+    "25"
+   ],
+   "5": [
+    "22",
+    "27"
+   ],
+   "6": [
+    "0",
+    "24"
+   ],
+   "7": [
+    "24",
+    "8"
+   ],
+   "8": [
+    "6",
+    "29"
+   ],
+   "9": [
+    "25",
+    "34"
+   ],
+   "10": [
+    "18",
+    "27"
+   ],
+   "11": [
+    "17",
+    "56"
+   ],
+   "12": [
+    "19",
+    "72"
+   ]
+  },
+  "Gates": {
+   "2": [
+    "24",
+    "42"
+   ],
+   "3": [
+    "29",
+    "54"
+   ],
+   "4": [
+    "23",
+    "27"
+   ],
+   "5": [
+    "28",
+    "30"
+   ],
+   "6": [
+    "0",
+    "33"
+   ],
+   "7": [
+    "24",
+    "8"
+   ],
+   "8": [
+    "7",
+    "42"
+   ],
+   "9": [
+    "21",
+    "27"
+   ],
+   "10": [
+    "24",
+    "26"
+   ],
+   "11": [
+    "22",
+    "32"
+   ],
+   "12": [
+    "26",
+    "TD"
+   ]
+  }
+ },
+ "punt_return": {
+  "selector": {
+   "2": "Lucas",
+   "3": "Lucas",
+   "4": "Lucas",
+   "5": "Lucas",
+   "6": "Lucas",
+   "7": "Lucas",
+   "8": "Gates",
+   "9": "Gates",
+   "10": "Gates",
+   "11": "Gates",
+   "12": "Gates"
+  },
+  "Lucas": {
+   "2": [
+    "2F",
+    "31F"
+   ],
+   "3": [
+    "3",
+    "22"
+   ],
+   "4": [
+    "1",
+    "16P"
+   ],
+   "5": [
+    "0P",
+    "13"
+   ],
+   "6": [
+    "3",
+    "14"
+   ],
+   "7": [
+    "4",
+    "10"
+   ],
+   "8": [
+    "1",
+    "12"
+   ],
+   "9": [
+    "5",
+    "11"
+   ],
+   "10": [
+    "4",
+    "16"
+   ],
+   "11": [
+    "5",
+    "12"
+   ],
+   "12": [
+    "9",
+    "TD"
+   ]
+  },
+  "Gates": {
+   "2": [
+    "0",
+    "11P"
+   ],
+   "3": [
+    "-1",
+    "10P"
+   ],
+   "4": [
+    "6",
+    "9"
+   ],
+   "5": [
+    "7",
+    "13"
+   ],
+   "6": [
+    "3",
+    "8"
+   ],
+   "7": [
+    "2",
+    "10"
+   ],
+   "8": [
+    "0",
+    "7"
+   ],
+   "9": [
+    "-1",
+    "11"
+   ],
+   "10": [
+    "1P",
+    "8"
+   ],
+   "11": [
+    "0",
+    "11"
+   ],
+   "12": [
+    "3P",
+    "TD"
+   ]
+  }
+ },
+ "dtc": {
+  "team": "San Antonio Texans",
+  "ratings": {
+   "run": "",
+   "pass_s": "",
+   "pass_m": "",
+   "pass_l": ""
+  },
+  "turnovers": {
+   "2": [
+    7,
+    "F",
+    2
+   ],
+   "3": [
+    3,
+    "F",
+    5
+   ],
+   "4": [
+    1,
+    "F",
+    ""
+   ],
+   "5": [
+    2,
+    "F",
+    ""
+   ],
+   "6": [
+    4,
+    "",
+    1
+   ],
+   "7": [
+    1,
+    "",
+    1
+   ],
+   "8": [
+    5,
+    "",
+    ""
+   ],
+   "9": [
+    3,
+    "",
+    ""
+   ],
+   "10": [
+    1,
+    "F",
+    ""
+   ],
+   "11": [
+    7,
+    "",
+    4
+   ],
+   "12": [
+    6,
+    "F",
+    2
+   ]
+  },
+  "run": {
+   "2": [
+    "+2",
+    ""
+   ],
+   "3": [
+    "+2",
+    "P"
+   ],
+   "4": [
+    "+1",
+    ""
+   ],
+   "5": [
+    "+1",
+    ""
+   ],
+   "6": [
+    "+1",
+    ""
+   ],
+   "7": [
+    "NC",
+    ""
+   ],
+   "8": [
+    "NC",
+    ""
+   ],
+   "9": [
+    "-1",
+    ""
+   ],
+   "10": [
+    "-1",
+    ""
+   ],
+   "11": [
+    "-1",
+    ""
+   ],
+   "12": [
+    "-2",
+    ""
+   ]
+  },
+  "pass_s": {
+   "2": [
+    "-3",
+    "R"
+   ],
+   "3": [
+    "-3",
+    "P"
+   ],
+   "4": [
+    "-2",
+    ""
+   ],
+   "5": [
+    "-2",
+    "X"
+   ],
+   "6": [
+    "-1",
+    ""
+   ],
+   "7": [
+    "NC",
+    ""
+   ],
+   "8": [
+    "NC",
+    "R"
+   ],
+   "9": [
+    "NC",
+    ""
+   ],
+   "10": [
+    "NC",
+    ""
+   ],
+   "11": [
+    "+1",
+    "R"
+   ],
+   "12": [
+    "+1",
+    ""
+   ]
+  },
+  "pass_m": {
+   "2": [
+    "-2",
+    ""
+   ],
+   "3": [
+    "-2",
+    "P"
+   ],
+   "4": [
+    "-1",
+    ""
+   ],
+   "5": [
+    "-1",
+    ""
+   ],
+   "6": [
+    "NC",
+    "X"
+   ],
+   "7": [
+    "+1",
+    "R"
+   ],
+   "8": [
+    "+1",
+    ""
+   ],
+   "9": [
+    "+1",
+    "X"
+   ],
+   "10": [
+    "+2",
+    "R"
+   ],
+   "11": [
+    "+2",
+    ""
+   ],
+   "12": [
+    "+2",
+    "R"
+   ]
+  },
+  "pass_l": {
+   "2": [
+    "+2",
+    ""
+   ],
+   "3": [
+    "+1",
+    "X"
+   ],
+   "4": [
+    "+1",
+    "P"
+   ],
+   "5": [
+    "+1",
+    ""
+   ],
+   "6": [
+    "NC",
+    "X"
+   ],
+   "7": [
+    "NC",
+    "R"
+   ],
+   "8": [
+    "NC",
+    "R"
+   ],
+   "9": [
+    "-1",
+    "X"
+   ],
+   "10": [
+    "-1",
+    "R"
+   ],
+   "11": [
+    "-1",
+    "X"
+   ],
+   "12": [
+    "-1",
+    "X"
+   ]
+  }
+ },
+ "logo": "data:image/png;base64,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"
+}

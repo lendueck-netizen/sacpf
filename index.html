@@ -606,7 +606,7 @@ function netResume(){let s=null;try{s=JSON.parse(sessionStorage.getItem('sacpf_n
  if(!s||!s.mode||!s.code)return;NET.mode=s.mode;NET.code=s.code;
  if(s.mode=='host'){try{const a=JSON.parse(localStorage.getItem('sacpf_net_auto'));if(a&&a.code==s.code&&a.G&&Array.isArray(a.G.tm)&&a.G.tm.every(k=>T[k])){G=a.G;RL=a.RL||[];PICK[0]=G.tm[0];PICK[1]=G.tm[1]}}catch(x){}}
  netConnect()}
-const netCard=()=>NETON&&!NET.mode?`<div class=c><b>Play on two devices</b><p>One person hosts and gets a game code; the other joins with it. The host picks the two teams below and plays the first team; the friend plays the second.</p><button onclick="netHost()">Host a game</button> &nbsp; <input id=jc placeholder="Game code" size=7 maxlength=5 style="text-transform:uppercase"> <button onclick="netJoin()">Join a game</button>${NET.err?`<p><b>${NET.err}</b></p>`:''}</div>`:'';
+const netCard=()=>NETON&&!NET.mode?`<div class=c><b>Play on two devices</b><p>One person hosts and gets a game code; the other joins with it. After you host, you pick the two teams and play the first team; the friend plays the second.</p><button onclick="netHost()">Host a game</button> &nbsp; <input id=jc placeholder="Game code" size=7 maxlength=5 style="text-transform:uppercase"> <button onclick="netJoin()">Join a game</button>${NET.err?`<p><b>${NET.err}</b></p>`:''}</div>`:'';
 function gPick(k,quiet){NET.gpick=k;if(!k){if(!quiet)render();return}const o={t:'gteam',k};if(!NET.pool.has(k)&&T[k]){o.j=T[k];o.logo=LOGO[k]||''}netSend(o);if(!quiet)render()}
 const guestWait=()=>{let body;
  if(!NET.up)body='Connecting…';else if(!NET.peer)body='Connected. Waiting for the host to come back…';
@@ -878,7 +878,22 @@ function sLoadFile(f){if(!f)return;const r=new FileReader();r.onload=()=>{SMSG=s
 /* hooks into the base game */
 {const s0=window.save;window.save=function(){if(G&&G.ot)return;return s0()}}
 {const y0=window.yrPick;window.yrPick=function(id,y){if(/^s\d$/.test(String(id))){SELYR[id]=y;const f=teamsIn(y)[0],i=+String(id).slice(1);if(f&&yrOf(SSET.teams[i])!=y)SSET.teams[i]=f;render();return}return y0(id,y)}}
-{const sh=window.setupHTML;window.setupHTML=function(){return seasonCard()+sh()}}
+/* ---- start page: choose single game, season or two-device play, then pick the teams ---- */
+let MODE=null;
+function setMode(m){MODE=m;SMSG='';SNEWASK=false;SV=(m=='season'&&SEA&&SEA.phase!='done')?'main':null;render()}
+{const sh=window.setupHTML,back=()=>'<p style="margin:0 0 8px"><button onclick="setMode(null)">&larr; Back to the start</button></p>',
+ card=(t,d,b,fn,extra)=>`<div class=c><b style="font-size:1.1em">${t}</b><p style="margin:6px 0">${d}</p>${extra||''}<button class=big onclick="${fn}">${b}</button></div>`;
+ window.setupHTML=function(){
+  if(NETON&&NET.mode)return sh();
+  const nc=NETON&&!NET.mode?netCard():'';
+  if(MODE=='net'&&nc)return back()+nc;
+  if(MODE=='season')return back()+seasonCard();
+  if(MODE=='single'){let h=sh();if(nc&&h.startsWith(nc))h=h.slice(nc.length);return back()+h}
+  const live=SEA&&SEA.phase!='done';setTimeout(cpPrev,0);
+  return card('Single game','One game on this device. Play a friend, or play against the computer.','Play a single game',"setMode('single')")+
+   card('Season','Eight teams in two divisions, a schedule, standings, playoffs and a championship. Computer teams fill out the league.',live?'Continue the season':'Season play',"setMode('season')",live?`<p style="margin:6px 0"><small>In progress: <b>${sEsc(SEA.name)}</b></small></p>`:'')+
+   (NETON?card('Two-device play','You and a friend each use your own device. One of you hosts and gets a game code; the other joins with it.','Two-device play',"setMode('net')"):'')+
+   `<details class=c><summary><b>Add a team or create players</b></summary><div style="margin-top:8px"><b>Add a team</b><p>Load a team file made by the card reader program.</p><input type="file" accept=".json,application/json" onchange="importTeam(this.files[0])"><p>${IMSG}</p></div>${cpBox()}</details>`+loadBox()}}
 {const r1=window.render;window.render=function(){if(!G&&SV=='setup'){const e=document.getElementById('app');if(e){e.innerHTML=sSetupHTML();return}}r1();if(G&&G.sg)sGameSave()}}
 sLoadLocal();
 {let tries=0;const iv=setInterval(()=>{if(SEA||++tries>30){clearInterval(iv);return}sLoadLocal();if(SEA&&!G)render()},500)}
@@ -889,4 +904,6 @@ sLoadLocal();
 function cpuBtns(same){return `<p style="margin:10px 0 0"><b>Or play against the computer:</b> <button ${same?'disabled':''} onclick="startCpu(0)">I play ${String(NM[PICK[0]]).replace(/[<>&]/g,'')}</button> <button ${same?'disabled':''} onclick="startCpu(1)">I play ${String(NM[PICK[1]]).replace(/[<>&]/g,'')}</button></p>`}
 function startCpu(me){start();G.cpu=[me!=0,me!=1];L(nm(me==0?1:0)+' is controlled by the computer.');render()}
 {const s0=window.start;window.start=function(){const c=G&&G.cpu&&!G.sg?G.cpu.slice():null;s0();if(c){G.cpu=c;render()}}}
+
+render();
 </script></body></html>
